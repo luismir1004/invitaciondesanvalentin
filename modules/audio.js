@@ -12,7 +12,8 @@ function initAudioSystem() {
     if (audio) return;
 
     // 1. Core Track Setup
-    audio = new Audio('assets/audio/domingo_familiar.mp3');
+    // Use root-relative path (Vite public folder strategy)
+    audio = new Audio('/audio/domingo_familiar.mp3');
     audio.loop = true;
     audio.volume = volume;
 
