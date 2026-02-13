@@ -1383,11 +1383,13 @@ body {
   /* Gold Glow */
   position: relative;
   /* Gold Glow */
+  /* Gold Glow */
   position: relative;
-  /* overflow: hidden; Removed to prevent clipping on small screens */
+  overflow: hidden;
+  /* Contain glow and prevent layout shift */
+  width: 100%;
   max-width: 800px;
   margin: 0 auto;
-  transition: transform 0.5s ease, box-shadow 0.5s ease;
   transition: transform 0.5s ease, box-shadow 0.5s ease;
 }
 
@@ -1395,7 +1397,8 @@ body {
   .counter-grid {
     grid-template-columns: repeat(2, 1fr);
     /* 2x2 Grid for Mobile */
-    gap: var(--space-lg);
+    gap: var(--space-md);
+    /* Tighter gap for small screens */
     padding: var(--space-md);
   }
 

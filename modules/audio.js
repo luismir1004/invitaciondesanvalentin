@@ -22,11 +22,30 @@ function initAudioContext() {
  */
 export function unlockAudio() {
     if (!audio) initAudioContext();
-    // Play and immediately pause to "bless" the audio element
-    audio.play().then(() => {
-        audio.pause();
-        audio.currentTime = 0;
-    }).catch(e => console.log("Audio unlock failed (will try again later):", e));
+
+    // Resume context if suspended (Web Audio API specific, but good practice)
+    // For HTML5 Audio, just playing is enough.
+
+    const startPlay = () => {
+        audio.play().then(() => {
+            // It worked! We can pause now and wait for the real trigger.
+            audio.pause();
+            audio.currentTime = 0;
+            // Remove global listeners once unlocked
+            document.removeEventListener('touchstart', unlockAudio);
+            document.removeEventListener('click', unlockAudio);
+        }).catch(e => {
+            console.log("Audio unlock failed (will try again on next interaction):", e);
+        });
+    };
+
+    startPlay();
+}
+
+// Aggressively try to unlock on ANY first interaction
+if (typeof window !== 'undefined') {
+    document.addEventListener('touchstart', unlockAudio, { once: true });
+    document.addEventListener('click', unlockAudio, { once: true });
 }
 
 export function updateButtonVisual() {
