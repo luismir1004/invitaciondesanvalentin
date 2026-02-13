@@ -92,11 +92,13 @@
 html {
   font-size: 16px;
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  /* Force no horizontal scroll */
+  width: 100%;
 }
 
 body {
   font-family: var(--font-sans);
-  color: var(--white-alpha-90);
   color: var(--white-alpha-90);
   background: #0a090f;
   /* Darker luxury base */
@@ -106,6 +108,18 @@ body {
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   overflow-x: hidden;
+  /* Double lock */
+  width: 100%;
+  position: relative;
+}
+
+/* Global Section Constraint */
+section,
+.container,
+footer,
+header {
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 /* Custom cursor — desktop only */
@@ -1569,8 +1583,11 @@ body {
 .bouquet-container {
   position: relative;
   width: 100%;
+  max-width: 100%;
+  /* Ensure it fits */
   margin: var(--space-xl) auto;
-  overflow: visible;
+  overflow: hidden;
+  /* Crop any image spill */
   display: flex;
   align-items: center;
   justify-content: center;
