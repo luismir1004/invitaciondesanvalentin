@@ -11,7 +11,7 @@ import { initParticleField, fireHeartRain, initCursorTrail } from './modules/eff
 import { initUnlockCanvas } from './modules/unlock.js';
 import { initAudioVisualizer } from './modules/visualizer.js';
 import { initCounter } from './modules/counter.js';
-import { playShimmerSound, playAmbientMelody, updateButtonVisual } from './modules/audio.js';
+import { playShimmerSound, playAmbientMelody, updateButtonVisual, unlockAudio } from './modules/audio.js';
 import { growBouquet } from './modules/bouquet.js';
 import { initParallax } from './modules/parallax.js';
 import { initRoyalRSVP } from './modules/rsvp.js';
@@ -108,12 +108,8 @@ function setupEnvelopeInteraction() {
 
         // 0. Unlock Audio Engine (Mobile Fix)
         // We must do this *immediately* on the user event (click)
-        try {
-            const { unlockAudio } = await import('./modules/audio.js');
-            unlockAudio();
-        } catch (e) {
-            console.error("Audio unlock error:", e);
-        }
+        // Now imported statically for zero-latency execution
+        unlockAudio();
 
         // 1. Hand over purely to GSAP for "Physical Extraction"
         // We skip adding 'is-open' class to prevent CSS conflicts
