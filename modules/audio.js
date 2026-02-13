@@ -1,51 +1,87 @@
 /* ============================================================
-   AUDIO MODULE — Real Audio Playback
+   AUDIO MODULE — Professional Web Audio Implementation
    Song: Rawayana - Domingo Familiar
    ============================================================ */
 
-var audio = null;
-var isMuted = false;
-var volume = 0.5;
+let audio = null; // HTML5 Audio Element for the track
+let isMuted = false;
+let volume = 0.5;
+let audioContext = null; // Web Audio API Context for unlocking
 
-function initAudioContext() {
+function initAudioSystem() {
     if (audio) return;
 
-    // Create audio instance
+    // 1. Core Track Setup
     audio = new Audio('assets/audio/domingo_familiar.mp3');
     audio.loop = true;
     audio.volume = volume;
+
+    // 2. Web Audio Context (The Key to Mobile Autoplay)
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+        audioContext = new AudioContext();
+    }
 }
 
 /**
- * Browsers block audio unless triggered by user interaction.
- * Call this immediately on the first click (e.g. envelope open).
+ * THE "PRO" UNLOCKER
+ * Uses Web Audio API to force the browser's audio engine to wake up.
+ * This is far more reliable than just playing an HTML5 audio tag.
  */
 export function unlockAudio() {
-    if (!audio) initAudioContext();
+    if (!audio) initAudioSystem();
 
-    // Resume context if suspended (Web Audio API specific, but good practice)
-    // For HTML5 Audio, just playing is enough.
-
-    const startPlay = () => {
-        audio.play().then(() => {
-            // It worked! We can pause now and wait for the real trigger.
-            audio.pause();
-            audio.currentTime = 0;
-            // Remove global listeners once unlocked
-            document.removeEventListener('touchstart', unlockAudio);
-            document.removeEventListener('click', unlockAudio);
-        }).catch(e => {
-            console.log("Audio unlock failed (will try again on next interaction):", e);
+    // Strategy A: Resume Web Audio Context
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().then(() => {
+            console.log("AudioContext resumed successfully.");
         });
-    };
+    }
 
-    startPlay();
+    // Strategy B: Play a silent buffer (The "Empty Sound" Trick)
+    // This forces the audio hardware to engage
+    if (audioContext) {
+        const buffer = audioContext.createBuffer(1, 1, 22050);
+        const source = audioContext.createBufferSource();
+        source.buffer = buffer;
+        source.connect(audioContext.destination);
+        if (source.start) source.start(0);
+        else if (source.noteOn) source.noteOn(0);
+    }
+
+    // Strategy C: Prime the Main Track (Play then Pause)
+    // We only do this if it's NOT already playing
+    if (audio.paused) {
+        const playPromise = audio.play();
+        if (playPromise !== undefined) {
+            playPromise.then(() => {
+                // Success! Immediately pause and reset so it waits for the cue.
+                audio.pause();
+                audio.currentTime = 0;
+
+                // Cleanup: We are unlocked, remove listeners to save resources
+                removeUnlockListeners();
+            }).catch(error => {
+                console.warn("Audio unlock prevented:", error);
+                // Don't remove listeners; try again next tap
+            });
+        }
+    }
 }
 
-// Aggressively try to unlock on ANY first interaction
+function removeUnlockListeners() {
+    if (typeof document !== 'undefined') {
+        document.removeEventListener('touchstart', unlockAudio);
+        document.removeEventListener('click', unlockAudio);
+        document.removeEventListener('keydown', unlockAudio);
+    }
+}
+
+// Attach aggressive listeners immediately
 if (typeof window !== 'undefined') {
-    document.addEventListener('touchstart', unlockAudio, { once: true });
-    document.addEventListener('click', unlockAudio, { once: true });
+    const events = ['touchstart', 'click', 'keydown'];
+    // Use passive: false to ensure we can intercept if needed, though usually not required for audio
+    events.forEach(event => document.addEventListener(event, unlockAudio, { once: false, passive: false }));
 }
 
 export function updateButtonVisual() {
@@ -63,32 +99,34 @@ export function playShimmerSound() {
 }
 
 export function playAmbientMelody() {
-    if (!audio) initAudioContext();
+    if (!audio) initAudioSystem();
 
-    // Try to play. If not muted, goes for it.
     if (!isMuted) {
-        var promise = audio.play();
-        if (promise !== undefined) {
-            promise.then(_ => {
-                // Autoplay started!
-            }).catch(error => {
-                console.log("Autoplay prevented. UI will sync to muted state.");
-                // If blocked, treat as muted so user must click to play
-                isMuted = true;
-                updateButtonVisual();
-            });
+        // Force resume context just in case
+        if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume();
         }
+
+        audio.play().catch(e => {
+            console.warn("Autoplay blocked, waiting for interaction:", e);
+            isMuted = true;
+            updateButtonVisual();
+        });
     }
 }
 
 export function toggleAudioMute() {
-    if (!audio) initAudioContext();
+    if (!audio) initAudioSystem();
 
     isMuted = !isMuted;
 
     if (isMuted) {
         audio.pause();
     } else {
+        // If unmuting, ensure context is running
+        if (audioContext && audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
         audio.play().catch(e => console.error("Play error:", e));
     }
 
