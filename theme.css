@@ -1337,12 +1337,12 @@ header {
   /* Memories Grid - Mobile Optimized */
   .masonry-grid {
     column-count: 2;
-    /* Always 2 columns */
-    column-gap: var(--space-sm);
+    column-gap: var(--space-xs);
+    /* Tighter gap for aesthetics */
   }
 
   .memory-card {
-    margin-bottom: var(--space-sm);
+    margin-bottom: var(--space-xs);
     border-radius: var(--radius-sm);
     /* Subtler radius for small screens */
   }
