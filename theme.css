@@ -1631,6 +1631,15 @@ header {
   pointer-events: none;
 }
 
+@media (max-width: 768px) {
+  .bouquet-image {
+    width: 100%;
+    max-width: 350px;
+    /* Constrain on mobile */
+    margin: 0 auto;
+  }
+}
+
 /* ── RSVP Section (Overhaul) ──────────────────────────────── */
 .rsvp-section {
   text-align: center;
