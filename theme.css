@@ -1345,6 +1345,13 @@ header {
     margin-bottom: var(--space-xs);
     border-radius: var(--radius-sm);
     /* Subtler radius for small screens */
+    height: auto !important;
+    aspect-ratio: auto !important;
+  }
+
+  /* Disable tall crop on mobile too */
+  .memory-tall {
+    aspect-ratio: auto !important;
   }
 }
 
