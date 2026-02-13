@@ -55,7 +55,16 @@ export function unlockAudio() {
         const playPromise = audio.play();
         if (playPromise !== undefined) {
             playPromise.then(() => {
-                // Success! Immediately pause and reset so it waits for the cue.
+                // Success! We are now unlocked.
+
+                // CRITICAL FIX: If we were "muted" only because of autoplay blocking, 
+                // we should reset that state now that we have a user gesture.
+                if (isMuted) {
+                    isMuted = false;
+                    updateButtonVisual();
+                }
+
+                // Immediately pause and reset so it waits for the cue.
                 audio.pause();
                 audio.currentTime = 0;
 
@@ -101,17 +110,23 @@ export function playShimmerSound() {
 export function playAmbientMelody() {
     if (!audio) initAudioSystem();
 
+    // Strategy: If we are not MUTED by choice, we play.
     if (!isMuted) {
         // Force resume context just in case
         if (audioContext && audioContext.state === 'suspended') {
             audioContext.resume();
         }
 
-        audio.play().catch(e => {
-            console.warn("Autoplay blocked, waiting for interaction:", e);
-            isMuted = true;
-            updateButtonVisual();
-        });
+        var promise = audio.play();
+        if (promise !== undefined) {
+            promise.catch(e => {
+                console.warn("Autoplay blocked, waiting for interaction:", e);
+                // We do NOT set isMuted=true here anymore. 
+                // We just let it fail silently, because the global unlocker 
+                // will eventually catch a click and start it if needed.
+                updateButtonVisual();
+            });
+        }
     }
 }
 
