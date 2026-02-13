@@ -16,6 +16,19 @@ function initAudioContext() {
     audio.volume = volume;
 }
 
+/**
+ * Browsers block audio unless triggered by user interaction.
+ * Call this immediately on the first click (e.g. envelope open).
+ */
+export function unlockAudio() {
+    if (!audio) initAudioContext();
+    // Play and immediately pause to "bless" the audio element
+    audio.play().then(() => {
+        audio.pause();
+        audio.currentTime = 0;
+    }).catch(e => console.log("Audio unlock failed (will try again later):", e));
+}
+
 export function updateButtonVisual() {
     var btn = document.getElementById('audio-toggle');
     if (btn) {

@@ -1388,6 +1388,21 @@ body {
   max-width: 800px;
   margin: 0 auto;
   transition: transform 0.5s ease, box-shadow 0.5s ease;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+@media (max-width: 768px) {
+  .counter-grid {
+    grid-template-columns: repeat(2, 1fr);
+    /* 2x2 Grid for Mobile */
+    gap: var(--space-lg);
+    padding: var(--space-md);
+  }
+
+  .counter-item:nth-child(2)::after {
+    display: none;
+    /* Remove divider after 2nd item for clean 2x2 look */
+  }
 }
 
 .counter-grid:hover {

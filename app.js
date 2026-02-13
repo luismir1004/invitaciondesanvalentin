@@ -99,8 +99,21 @@ function setupEnvelopeInteraction() {
     const envelope = document.querySelector('.envelope');
     const seal = document.querySelector('.envelope-seal');
 
-    const triggerOpen = () => {
+    // Import unlocker dynamically to avoid top-level await issues if needed, 
+    // or better, assume it's available via module scope if we change imports.
+    // For now, let's just trigger the global audio unlock if exposed, or import it.
+
+    const triggerOpen = async () => {
         if (hasRevealed) return;
+
+        // 0. Unlock Audio Engine (Mobile Fix)
+        // We must do this *immediately* on the user event (click)
+        try {
+            const { unlockAudio } = await import('./modules/audio.js');
+            unlockAudio();
+        } catch (e) {
+            console.error("Audio unlock error:", e);
+        }
 
         // 1. Hand over purely to GSAP for "Physical Extraction"
         // We skip adding 'is-open' class to prevent CSS conflicts
