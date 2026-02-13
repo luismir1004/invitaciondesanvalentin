@@ -151,8 +151,6 @@ export function fireHeartRain() {
 
 /* ── Cursor Trail (Shimmer particles) ─────────────────────── */
 
-/* ── Cursor Trail (Golden Dust) ───────────────────────────── */
-
 export function initCursorTrail() {
     if (!window.matchMedia('(pointer: fine)').matches) return;
 

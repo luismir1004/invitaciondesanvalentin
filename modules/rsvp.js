@@ -78,9 +78,6 @@ export function initRoyalRSVP() {
         instruction.style.opacity = '0.5';
         instruction.innerText = "Sellando pacto...";
         animationFrame = requestAnimationFrame(updateProgress);
-
-        // Play charging sound if available
-        // if(window.audioEngine) window.audioEngine.playCharge();
     }
 
     function endHold(e) {
@@ -98,7 +95,6 @@ export function initRoyalRSVP() {
 
         // 1. Audio & Haptics
         if (window.navigator && window.navigator.vibrate) window.navigator.vibrate([200, 100, 200]);
-        // playSuccessSound(); // Placeholder
 
         // 2. Confetti Explosion (Center of button)
         const rect = btn.getBoundingClientRect();
@@ -226,3 +222,4 @@ export function initRoyalRSVP() {
         });
     }
 }
+

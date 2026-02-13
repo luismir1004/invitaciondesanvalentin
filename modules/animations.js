@@ -55,12 +55,19 @@ export function playUnlockToEnvelope(onComplete) {
  * Replaces explosive effects with a premium, smooth transition.
  * @param {Function} onComplete
  */
+/**
+ * The "Realistic Extraction" Open
+ * Simulates pulling the card out of the envelope and bringing it into focus.
+ * @param {Function} onComplete
+ */
 export function playBigBangReveal(onComplete) {
     var envelopeSection = document.getElementById('envelope-section');
     var cardSection = document.getElementById('card-section');
     var cardInner = cardSection ? cardSection.querySelector('.card-inner') : null;
     var envelopeFlap = document.querySelector('.envelope-flap');
     var envelope = document.querySelector('.envelope');
+    var envelopeSeal = document.querySelector('.envelope-seal');
+    var cardPreview = document.querySelector('.envelope-card-preview');
     var meshBg = document.getElementById('mesh-bg');
 
     if (!envelopeSection || !cardSection || !cardInner) return;
@@ -72,74 +79,77 @@ export function playBigBangReveal(onComplete) {
         }
     });
 
-    // 1. Flap opens gracefully
+    // 0. Seal Dissolves (Subtle)
+    tl.to(envelopeSeal, {
+        opacity: 0,
+        scale: 0.8,
+        duration: 0.4,
+        ease: 'power2.in'
+    });
+
+    // 1. Flap Opens (Natural Physics)
+    // back.out gives it a little "hinge bounce" at the end
     tl.to(envelopeFlap, {
         rotateX: -180,
         duration: 0.8,
-        ease: 'power2.inOut'
-    });
+        ease: 'back.out(1.2)'
+    }, '-=0.2');
 
-    // 2. Envelope "Evaporates" (Executive Dissolve)
-    // Instead of shrinking/flying, it gently expands and fades.
-    tl.to(envelope, {
-        scale: 1.05,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.in',
-        onComplete: function () {
-            envelopeSection.style.display = 'none';
-            envelopeSection.style.pointerEvents = 'none'; // Critical Safety
-            envelopeSection.setAttribute('aria-hidden', 'true');
-        }
+    // 2. The Extraction (Cinematic Pull)
+    // Card goes UP, Envelope goes DOWN (Parallax separation)
+    tl.to(cardPreview, {
+        y: -180,
+        zIndex: 5,
+        duration: 1.0,
+        ease: 'power2.inOut'
     }, '-=0.4');
 
-    // 3. Ambient Light Shift (Subtle)
-    tl.call(function () {
-        if (meshBg) meshBg.classList.add('mesh-exploded'); // Keeps the color shift, but softer transition
-    }, null, '-=0.6');
+    tl.to(envelope, {
+        y: 100,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.in'
+    }, '<'); // Starts same time as card move
 
-    // 4. Reveal Card Section Container
+    // 3. Reveal Actual Card (Zoom In Transition)
     tl.call(function () {
+        envelopeSection.style.display = 'none'; // Clear envelope
         cardSection.hidden = false;
         cardSection.style.display = '';
-    }, null, '-=0.2');
+        if (meshBg) meshBg.classList.add('mesh-exploded');
+    });
 
-    // 5. Card Entry — "The Executive Rise"
-    // No rotation. Just a clean, vertical ascent with opacity.
+    // Card lands as if camera zoomed into the preview
     tl.fromTo(cardInner,
         {
-            y: 40,
             opacity: 0,
-            scale: 0.98,
-            transformPerspective: 1200,
-            rotateX: 2 // Tiny tilt for depth, effectively flat
+            scale: 0.8, // Started small (like the preview)
+            y: 20
         },
         {
-            y: 0,
             opacity: 1,
             scale: 1,
-            rotateX: 0,
-            duration: 1.4,
-            ease: 'expo.out' // Ultra-smooth landing
-        },
-        '-=0.4'
+            y: 0,
+            duration: 1.2,
+            ease: 'expo.out' // Soft landing
+        }
     );
 
-    // 6. Content Waterfall — Elegant Stagger
+    // 4. Content Flows In (Elegant Stagger)
     var staggerElements = cardInner.querySelectorAll(
         '.card-header, .divider, .message-line, .music-player, .memories-section, .counter-section, .card-footer'
     );
 
     tl.fromTo(staggerElements,
-        { y: 20, opacity: 0 },
+        { y: 30, opacity: 0 },
         {
             y: 0,
             opacity: 1,
             duration: 1.0,
-            stagger: 0.12, // Slower stagger for readability
+            stagger: 0.15,
             ease: 'power2.out'
         },
-        '-=1.0'
+        '-=0.8'
     );
 
     return tl;

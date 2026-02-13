@@ -56,15 +56,11 @@ export function initUnlockCanvas(onUnlock) {
 
     // ── Helpers ───────────────────────────────────────────────────
     function getPos(e) {
-        // Use native offsetX/Y if available for performance (avoids getBoundingClientRect reflow)
-        if (e.offsetX !== undefined) {
-            return { x: e.offsetX, y: e.offsetY };
-        }
-        // Fallback
+        // Always use getBoundingClientRect for consistent behavior across inputs/scales
         var r = canvas.getBoundingClientRect();
         return {
-            x: (e.clientX || 0) - r.left,
-            y: (e.clientY || 0) - r.top
+            x: (e.clientX !== undefined ? e.clientX : e.touches && e.touches[0] ? e.touches[0].clientX : 0) - r.left,
+            y: (e.clientY !== undefined ? e.clientY : e.touches && e.touches[0] ? e.touches[0].clientY : 0) - r.top
         };
     }
 
@@ -187,7 +183,7 @@ export function initUnlockCanvas(onUnlock) {
 
         // Smart Threshold: Require somewhat complex input (mimicking a letter)
         // Tune: Lowered to 80 for better responsiveness on mobile/quick strokes
-        console.log('Total pixels drawn:', totalPixels);
+
 
         if (!unlockTriggered && totalPixels > 80) {
             // Debounce check to let them finish the letter
@@ -199,7 +195,7 @@ export function initUnlockCanvas(onUnlock) {
     function triggerVerification() {
         if (unlockTriggered) return;
         unlockTriggered = true;
-        console.log('Unlock Verification Triggered');
+
 
         canvas.style.pointerEvents = 'none'; // Lock input
 
@@ -236,7 +232,7 @@ export function initUnlockCanvas(onUnlock) {
 
             setTimeout(function () {
                 if (typeof onUnlock === 'function') {
-                    console.log('Calling onUnlock callback');
+
                     onUnlock();
                 }
             }, 800);
@@ -264,4 +260,5 @@ export function initUnlockCanvas(onUnlock) {
         clearBtn.addEventListener('click', clearCanvas);
     }
 }
+
 

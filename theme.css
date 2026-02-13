@@ -33,13 +33,14 @@
   --font-sans: 'Inter', sans-serif;
 
   /* Spacing — Fluid (clamp) */
-  --space-xs: clamp(0.25rem, 0.5vw, 0.35rem);
-  --space-sm: clamp(0.5rem, 1vw, 0.75rem);
-  --space-md: clamp(1rem, 2vw, 1.25rem);
-  --space-lg: clamp(1.5rem, 3vw, 2rem);
-  --space-xl: clamp(2rem, 4vw, 3rem);
-  --space-2xl: clamp(3rem, 6vw, 4.5rem);
-  --space-3xl: clamp(4rem, 8vw, 6rem);
+  /* Spacing — Fluid (clamp) optimized for mobile */
+  --space-xs: clamp(0.25rem, 1vw, 0.5rem);
+  --space-sm: clamp(0.5rem, 1.5vw, 0.85rem);
+  --space-md: clamp(1rem, 3vw, 1.5rem);
+  --space-lg: clamp(1.5rem, 4vw, 2.5rem);
+  --space-xl: clamp(2.5rem, 5vw, 3.5rem);
+  --space-2xl: clamp(3.5rem, 7vw, 5rem);
+  --space-3xl: clamp(4rem, 9vw, 7rem);
 
   /* Glass — Refined Thin */
   --glass-blur: 24px;
@@ -95,6 +96,7 @@ html {
 
 body {
   font-family: var(--font-sans);
+  color: var(--white-alpha-90);
   color: var(--white-alpha-90);
   background: #0a090f;
   /* Darker luxury base */
@@ -167,15 +169,17 @@ body {
 #preloader {
   position: fixed;
   inset: 0;
-  background: #000;
+  /* Deep Cinematic Background */
+  background: radial-gradient(circle at center, #1a1a1a 0%, #000000 100%);
   z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.8s var(--ease-cinematic), visibility 0.8s;
+  transition: opacity 7s ease-in-out, visibility 7s;
+  /* Ultra slow fade */
 
-  /* CSS Failsafe: Forces hide after 5s if JS crashes */
-  animation: emergencyFadeOut 0.5s linear 5s forwards;
+  /* CSS Failsafe: Forces hide after 12s if JS crashes */
+  animation: emergencyFadeOut 0.5s linear 12s forwards;
   animation-play-state: running;
 }
 
@@ -191,21 +195,73 @@ body {
 .preloader-heart {
   width: 60px;
   height: 60px;
-  animation: heartPulse 1.5s ease-in-out infinite;
+  /* Cinematic Heartbeat */
+  animation: heartbeat 2s ease-in-out infinite;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: visible;
+  /* Allow text to show */
 }
 
-@keyframes heartPulse {
+.preloader-heart svg {
+  filter: drop-shadow(0 0 15px rgba(201, 169, 110, 0.3));
+  transition: filter 2s ease;
+}
 
-  0%,
-  100% {
-    transform: scale(0.9);
-    opacity: 0.8;
+/* Introductory Text */
+.preloader-heart::after {
+  content: "Para Alejandra";
+  display: block;
+  margin-top: 30px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--gold-light);
+  font-size: 1.1rem;
+  letter-spacing: 0.15em;
+  opacity: 0;
+  text-align: center;
+  white-space: nowrap;
+  animation: textFadeIn 2s ease forwards 0.5s;
+}
+
+@keyframes heartbeat {
+  0% {
+    transform: scale(1);
   }
 
-  50% {
-    transform: scale(1.1);
-    opacity: 1;
-    filter: drop-shadow(0 0 15px rgba(201, 169, 110, 0.4));
+  15% {
+    transform: scale(1.15);
+  }
+
+  /* Lub-dub */
+  30% {
+    transform: scale(1);
+  }
+
+  45% {
+    transform: scale(1.05);
+  }
+
+  /* Echo */
+  60% {
+    transform: scale(1);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes textFadeIn {
+  to {
+    opacity: 0.9;
+    transform: translateY(0);
+  }
+
+  from {
+    opacity: 0;
+    transform: translateY(10px);
   }
 }
 
@@ -506,7 +562,8 @@ body {
   border: 0.5px solid rgba(255, 255, 255, 0.08);
   box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.2);
   touch-action: none;
-  cursor: crosshair !important;
+  /* Critical for mobile drawing */
+  cursor: crosshair;
   width: 100%;
   height: 100%;
   transition: border-color 0.5s var(--ease-smooth);
@@ -584,8 +641,10 @@ body {
 /* ── The 3D Envelope Container ── */
 .envelope {
   position: relative;
-  width: 320px;
-  height: 220px;
+  width: 100%;
+  max-width: 340px;
+  height: auto;
+  aspect-ratio: 320 / 220;
   transform-style: preserve-3d;
   cursor: pointer;
   transition: transform 0.6s var(--ease-spring);
@@ -1227,21 +1286,52 @@ body {
   border-color: rgba(255, 255, 255, 0.3);
 }
 
+/* Base CSS for Intelligent Images */
 .memory-card img {
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
   object-fit: cover;
+  transition: transform 0.5s ease;
 }
 
-.memory-tall img {
-  height: 220px;
-  object-fit: cover;
+/* Aspect Ratio Classes */
+.memory-card {
+  height: auto;
+  /* Let aspect-ratio drive height */
+  aspect-ratio: 4/5;
+  /* Standard Vertical */
 }
 
-.memory-card:not(.memory-tall) img {
-  height: 140px;
-  object-fit: cover;
+.memory-tall {
+  aspect-ratio: 9/16;
+  /* Cinematic Tall */
+}
+
+/* ════════════════════════════════════════════════════════════
+   RESPONSIVE (Broadened to 600px for modern phones)
+   ════════════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+  .container {
+    padding: var(--space-md);
+  }
+
+  .card-inner {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  /* Memories Grid - Mobile Optimized */
+  .masonry-grid {
+    column-count: 2;
+    /* Always 2 columns */
+    column-gap: var(--space-sm);
+  }
+
+  .memory-card {
+    margin-bottom: var(--space-sm);
+    border-radius: var(--radius-sm);
+    /* Subtler radius for small screens */
+  }
 }
 
 .memory-caption {
@@ -1254,58 +1344,192 @@ body {
   letter-spacing: 0.02em;
 }
 
-/* ── Counter Section ──────────────────────────────────────── */
-/* ── Counter Section (Minimalist) ─────────────────────────── */
+/* ── Counter Section (Glass & Gold Redesign) ──────────────── */
 .counter-section {
   text-align: center;
-  margin-bottom: var(--space-2xl);
-  padding: 0 var(--space-md);
+  margin: var(--space-2xl) 0;
+  position: relative;
+  padding: var(--space-lg);
+  perspective: 1000px;
 }
 
 .counter-label {
-  font-family: var(--font-sans);
-  font-size: 0.65rem;
-  font-weight: 600;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold-accent);
-  margin-bottom: var(--space-lg);
-  opacity: 0.8;
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-style: italic;
+  color: var(--gold-light);
+  margin-bottom: var(--space-md);
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .counter-grid {
-  display: flex;
-  justify-content: center;
-  gap: var(--space-lg);
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-md);
+  background: rgba(20, 20, 20, 0.4);
+  /* Darker base for contrast */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  /* Subtle Gold Border */
+  border-radius: var(--radius-lg);
+  padding: var(--space-lg) var(--space-md);
+  box-shadow:
+    0 10px 40px -10px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    0 0 20px rgba(212, 175, 55, 0.05);
+  /* Gold Glow */
+  position: relative;
+  /* Gold Glow */
+  position: relative;
+  /* overflow: hidden; Removed to prevent clipping on small screens */
+  max-width: 800px;
+  margin: 0 auto;
+  transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.counter-grid:hover {
+  transform: translateY(-2px);
+  box-shadow:
+    0 15px 50px -10px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08),
+    0 0 30px rgba(212, 175, 55, 0.1);
+}
+
+/* Luxury Gradient Mesh Background */
+.counter-grid::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at center, rgba(201, 169, 110, 0.08) 0%, transparent 60%);
+  pointer-events: none;
+  animation: rotateGlow 20s linear infinite;
+  z-index: 0;
+}
+
+@keyframes rotateGlow {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .counter-item {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  min-width: 60px;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  min-width: 0;
+  /* Prevent flex item overflow */
+}
+
+/* Vertical dividers (Golden Threads) */
+.counter-item:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  right: calc(var(--space-md) * -0.5);
+  top: 15%;
+  bottom: 15%;
+  width: 1px;
+  background: linear-gradient(to bottom, transparent, rgba(212, 175, 55, 0.3), transparent);
 }
 
 .counter-value {
   font-family: var(--font-serif);
-  font-size: 2rem;
+  font-size: 3rem;
+  /* Impactful size */
   font-weight: 400;
-  color: var(--white-alpha-90);
-  line-height: 1;
+  /* Thin elegance */
+  background: linear-gradient(135deg, #fff 20%, #e8d5b7 50%, #c9a96e 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  line-height: 1.1;
+  margin-bottom: 0.2rem;
   font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+  white-space: nowrap;
+  /* Prevent wrapping */
 }
 
 .counter-unit {
   font-family: var(--font-sans);
-  font-size: 0.5rem;
-  font-weight: 500;
+  font-size: 0.75rem;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--white-alpha-40);
+  letter-spacing: 0.2em;
+  color: rgba(232, 213, 183, 0.6);
+  /* Champagne Text */
+  margin-top: 0.5rem;
+  font-weight: 500;
 }
+
+/* Mobile Responsiveness */
+/* Mobile Responsiveness */
+/* Mobile Responsiveness */
+/* Mobile Responsiveness (Aggressive Fix) */
+/* Mobile Responsiveness (Clean Air Fix) */
+@media (max-width: 768px) {
+  .counter-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 3rem 1rem !important;
+    /* Huge vertical gap for "Clean Air" */
+    padding: 0 !important;
+    max-width: 400px !important;
+
+    /* Remove Glass Box */
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  /* Hide Background Glow */
+  .counter-grid::before {
+    display: none !important;
+  }
+
+  /* Hide Horizontal Divider */
+  .counter-grid::after {
+    display: none !important;
+  }
+
+  /* Hide Vertical Dividers */
+  .counter-item::after {
+    display: none !important;
+  }
+
+  .counter-item:nth-child(1)::after,
+  .counter-item:nth-child(3)::after {
+    display: none !important;
+  }
+
+  .counter-value {
+    font-size: 2rem !important;
+    /* Restore nice size since we have space */
+    margin-bottom: 0px;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+    /* Stronger shadow for readability without box */
+  }
+
+  .counter-unit {
+    font-size: 0.7rem !important;
+    margin-top: 0.5rem;
+    opacity: 0.8;
+  }
+}
+
+
 
 /* ── Footer (Signature) ───────────────────────────────────── */
 .card-footer {
@@ -1327,32 +1551,33 @@ body {
 .bouquet-container {
   position: relative;
   width: 100%;
-  height: 420px;
-  margin: var(--space-lg) auto var(--space-xl);
+  margin: var(--space-xl) auto;
   overflow: visible;
   display: flex;
   align-items: center;
   justify-content: center;
   perspective: 800px;
   cursor: pointer;
+  /* Responsive Height */
+  height: auto;
+  aspect-ratio: 1 / 1;
+  max-height: 420px;
 }
 
 .bouquet-image {
   display: block;
-  max-width: 340px;
-  max-height: 420px;
-  width: auto;
+  width: 140%;
+  max-width: 500px;
   height: auto;
   object-fit: contain;
   user-select: none;
   -webkit-user-drag: none;
-  filter: saturate(1.15) drop-shadow(0 8px 32px rgba(120, 40, 60, 0.4)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
-  transform-style: preserve-3d;
-  will-change: transform, filter;
-  position: relative;
   z-index: 1;
   border-radius: 50%;
-  filter: saturate(1.15) drop-shadow(0 8px 32px rgba(120, 40, 60, 0.4)) drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  /* Blend to remove BLACK background from the new image */
+  mix-blend-mode: screen;
+  /* High Contrast Pop */
+  filter: saturate(1.1) contrast(1.1);
   transform-style: preserve-3d;
   will-change: transform, filter;
   position: relative;
@@ -1360,21 +1585,8 @@ body {
 }
 
 .bouquet-glow {
-  position: absolute;
-  top: 48%;
-  left: 50%;
-  width: 380px;
-  height: 380px;
-  transform: translate(-50%, -50%);
-  background: radial-gradient(ellipse at center,
-      hsla(20, 40%, 65%, 0.35) 0%,
-      hsla(340, 45%, 55%, 0.2) 30%,
-      hsla(340, 35%, 50%, 0.1) 55%,
-      transparent 75%);
-  border-radius: 50%;
-  pointer-events: none;
-  z-index: 0;
-  filter: blur(20px);
+  /* Removed glow for Pure Black aesthetic */
+  display: none;
 }
 
 #pollen-canvas {
@@ -1610,9 +1822,26 @@ body {
 
 .detail-item.full {
   grid-column: span 2;
-  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  text-align: center;
+  /* Center for importance */
+  border-top: 1px solid rgba(212, 175, 55, 0.2);
+  /* Subtle gold line */
   padding-top: var(--space-md);
   margin-top: var(--space-xs);
+}
+
+/* Specific override for the Destination value */
+.detail-item.full .d-value {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  font-style: italic;
+  font-size: 1.4rem;
+  color: var(--gold-light);
+  line-height: 1.1;
+  margin-top: 4px;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+  text-transform: none;
+  /* Allow natural case */
 }
 
 .d-label {
@@ -1881,6 +2110,15 @@ body {
   }
 }
 
+/* Intermediate Breakpoint for modern phones (iPhone Pro/Max, Pixel, etc) */
+@media (min-width: 381px) and (max-width: 767px) {
+  .envelope {
+    width: 280px;
+    /* Bridge the gap */
+    height: 190px;
+  }
+}
+
 @media (min-width: 768px) {
   .container {
     max-width: 560px;
@@ -2091,9 +2329,139 @@ body {
   transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* ── Mobile Optimization (Small Screens) ──────────────────── */
+@media (max-width: 480px) {
+  :root {
+    --glass-blur: 16px;
+    /* Performance */
+  }
+
+  .container {
+    padding: var(--space-md);
+  }
+
+  /* Unlock Screen */
+  .unlock-title {
+    font-size: 2.8rem;
+  }
+
+  .canvas-wrapper {
+    width: 200px;
+    height: 200px;
+  }
+
+  /* Card */
+  .card-inner {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .card-title {
+    font-size: 2.2rem;
+  }
+
+  .message-line {
+    font-size: 0.9rem;
+    line-height: 1.6;
+  }
+
+
+
+  /* Mobile RSVP & Masonry */
+  .rsvp-royal-card {
+    padding: var(--space-xl) var(--space-md);
+  }
+
+  .rsvp-title {
+    font-size: 1.6rem;
+  }
+
+  /* Memories Grid - Mobile */
+  .masonry-grid {
+    column-gap: var(--space-sm);
+  }
+}
+
+/* Global Reveal State */
 .golden-ticket.revealed {
   opacity: 1;
   transform: translateY(0) scale(1);
   margin-top: 0;
-  /* Clear overlap */
+}
+
+/* Fix: Missing Perspective Class */
+.ticket-perspective {
+  perspective: 1000px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: var(--space-xl);
+}
+
+/* Ensure Text Wrap for Long Locations */
+.d-value {
+  font-family: 'Courier New', monospace;
+  font-size: 1.1rem;
+  color: white;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  white-space: normal;
+  /* Allow wrapping */
+  word-wrap: break-word;
+  /* Break long words if needed */
+  line-height: 1.2;
+}
+
+/* ── Floral Background Upgrade ────────────────────────────── */
+#bouqet-container {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  /* Behind everything */
+
+  /* Cinematic Blend & Grade */
+  mix-blend-mode: hard-light;
+  filter: contrast(1.1) saturate(1.1) brightness(0.9);
+  opacity: 0.8;
+
+  /* Fade out towards top/bottom for focus */
+  mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 20%, black 80%, transparent 100%);
+  transition: opacity 2s ease;
+}
+
+/* Mobile Ticket Safety */
+@media (max-width: 480px) {
+  .golden-ticket {
+    max-width: 100%;
+    aspect-ratio: auto;
+    /* Allow height to grow with content */
+    min-height: 500px;
+    /* Ensure minimum premium height */
+  }
+
+  .d-value {
+    font-size: 1rem;
+    /* Slightly smaller on mobile to fit */
+  }
+
+  /* Adjust Destination on Mobile - PRO CLEAN VERSION */
+  .detail-item.full .d-value {
+    font-size: 1.4rem;
+    /* Balanced, readable size */
+    line-height: 1.2;
+    margin: 0;
+    /* No negative margins */
+    width: 100%;
+    white-space: normal;
+    padding: 0 5px;
+  }
+
+  .card-details-grid {
+    gap: var(--space-md);
+    /* Reduce gap on mobile */
+  }
 }

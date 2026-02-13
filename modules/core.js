@@ -77,6 +77,6 @@ window.addEventListener('mouseup', onPointerUp, { passive: true });
 window.addEventListener('touchstart', onPointerDown, { passive: true });
 window.addEventListener('touchend', onPointerUp, { passive: true });
 
-console.log('✨ Core initialized: Shared events ready');
+
 
 export default Core;
