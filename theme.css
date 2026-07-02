@@ -435,6 +435,16 @@ section > * {
     margin-top: var(--space-sm);
 }
 
+@keyframes counterTick {
+    0%   { transform: translateY(0); opacity: 1; }
+    25%  { transform: translateY(-4px); opacity: 0.6; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.counter-tick {
+    animation: counterTick 0.35s var(--ease-out);
+}
+
 /* ── History / Timeline ──────────────────────────────────── */
 .history {
     background-color: var(--bg-primary);

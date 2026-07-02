@@ -15,15 +15,24 @@ export function initCounter(startDate) {
 
   if (!daysEl || !hoursEl || !minutesEl || !secondsEl) return;
 
+  function setVal(el, val) {
+    if (el.textContent !== val) {
+      el.textContent = val;
+      el.classList.remove('counter-tick');
+      void el.offsetWidth;
+      el.classList.add('counter-tick');
+    }
+  }
+
   function update() {
     const now = new Date();
     const diff = now - startDate;
 
     if (diff < 0) {
-      daysEl.textContent = '0';
-      hoursEl.textContent = '0';
-      minutesEl.textContent = '0';
-      secondsEl.textContent = '0';
+      setVal(daysEl, '0');
+      setVal(hoursEl, '00');
+      setVal(minutesEl, '00');
+      setVal(secondsEl, '00');
       return;
     }
 
@@ -33,10 +42,10 @@ export function initCounter(startDate) {
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
 
-    daysEl.textContent = days.toLocaleString();
-    hoursEl.textContent = hours;
-    minutesEl.textContent = minutes;
-    secondsEl.textContent = seconds;
+    setVal(daysEl, days.toLocaleString());
+    setVal(hoursEl, String(hours).padStart(2, '0'));
+    setVal(minutesEl, String(minutes).padStart(2, '0'));
+    setVal(secondsEl, String(seconds).padStart(2, '0'));
   }
 
   // Actualización inmediata + cada segundo
