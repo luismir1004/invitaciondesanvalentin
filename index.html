@@ -14,7 +14,7 @@
     <meta property="og:image" content="/assets/og-preview.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
-    <meta name="theme-color" content="#FFFFFF">
+    <meta name="theme-color" content="#FDFBF9">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
@@ -30,7 +30,7 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <!-- Styles -->
     <link rel="stylesheet" href="theme.css">
@@ -41,27 +41,42 @@
         <!-- Hero Section -->
         <section class="hero" id="hero">
             <div class="hero-content">
-                <span class="hero-eyebrow">Aniversario</span>
-                <h1 class="hero-title">Un Año Contigo</h1>
-                <div class="divider"></div>
-                <p class="hero-date">20 de Julio de 2026</p>
+                <span class="hero-eyebrow" data-reveal>Nuestro Aniversario</span>
+                <h1 class="hero-title" data-reveal>
+                    <span class="hero-title-line">Un Año</span>
+                    <span class="hero-title-line hero-title-accent">Contigo</span>
+                </h1>
+                <div class="ornament" data-reveal aria-hidden="true">
+                    <span class="ornament-line"></span>
+                    <span class="ornament-mark">&#10084;</span>
+                    <span class="ornament-line"></span>
+                </div>
+                <p class="hero-date" data-reveal>20 &middot; Julio &middot; 2026</p>
             </div>
+            <span class="hero-scroll" data-reveal aria-hidden="true">
+                <span class="hero-scroll-text">Desliza</span>
+                <span class="hero-scroll-line"></span>
+            </span>
         </section>
 
         <!-- Message Section -->
         <section class="message" id="message">
-            <div class="message-content">
-                <p class="message-text">Ale, cada día a tu lado es un regalo que no sabía que el universo podía dar.</p>
+            <div class="message-content" data-reveal>
+                <span class="section-eyebrow">Para ti, Ale</span>
+                <p class="message-text">Cada día a tu lado es un regalo que no sabía que el universo podía dar.</p>
                 <p class="message-text">No necesito grandes gestos para saber que lo nuestro es extraordinario.</p>
                 <p class="message-text">Eres la razón por la que creo en la magia de lo cotidiano.</p>
-                <p class="message-signature">Con amor,<br>Luis</p>
+                <p class="message-signature">Con amor,<br><span class="signature-name">Luis</span></p>
             </div>
         </section>
 
         <!-- Counter Section -->
         <section class="counter" id="counter">
-            <h2 class="counter-label">Llevamos compartiendo momentos</h2>
-            <div class="counter-grid">
+            <div class="section-head" data-reveal>
+                <span class="section-eyebrow">Nuestro tiempo</span>
+                <h2 class="section-title">Llevamos compartiendo momentos</h2>
+            </div>
+            <div class="counter-grid" data-reveal>
                 <div class="counter-item">
                     <span class="counter-value" id="counter-days">0</span>
                     <span class="counter-unit">días</span>
@@ -83,39 +98,50 @@
 
         <!-- Photos Section -->
         <section class="photos" id="photos">
-            <h2 class="section-label">Nuestros Recuerdos</h2>
-            <div class="masonry-grid" id="masonry-grid">
-                <div class="photo-card photo-tall">
+            <div class="section-head" data-reveal>
+                <span class="section-eyebrow">Galería</span>
+                <h2 class="section-title">Nuestros Recuerdos</h2>
+            </div>
+            <div class="masonry-grid" id="masonry-grid" data-reveal>
+                <figure class="photo-card photo-tall">
                     <img src="assets/1B4ED299-73D3-440E-B6CE-07CA598536BB_1_105_c.jpeg" alt="Momentos únicos" width="750" height="1000" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-card">
+                </figure>
+                <figure class="photo-card">
                     <img src="assets/1DDEEA17-9661-4E66-A144-544FE9B2EE1F_1_105_c.jpeg" alt="Viajando a tu lado" width="750" height="1000" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-card">
+                </figure>
+                <figure class="photo-card">
                     <img src="assets/387AE7EE-CD9C-4D67-8C7F-53235A1E9536_1_105_c.jpeg" alt="Felicidad pura" width="750" height="1000" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-card photo-tall">
+                </figure>
+                <figure class="photo-card photo-tall">
                     <img src="assets/3CC4B55C-E7AB-482E-BD1D-225C0694A19B_1_105_c.jpeg" alt="Aventuras compartidas" width="1000" height="563" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-card">
+                </figure>
+                <figure class="photo-card">
                     <img src="assets/6A610084-9BF4-4190-819F-235F23BA71E4_1_105_c.jpeg" alt="Tú y yo" width="563" height="1000" loading="lazy" decoding="async">
-                </div>
-                <div class="photo-card">
+                </figure>
+                <figure class="photo-card">
                     <img src="assets/8C608867-3085-47CA-B0F1-E7A589FDB036_1_105_c.jpeg" alt="Para siempre" width="788" height="996" loading="lazy" decoding="async">
-                </div>
+                </figure>
             </div>
         </section>
 
         <!-- Music Section -->
         <section class="music" id="music">
-            <h2 class="section-label">Nuestra Música</h2>
-            <div class="music-player">
+            <div class="section-head" data-reveal>
+                <span class="section-eyebrow">Banda sonora</span>
+                <h2 class="section-title">Nuestra Música</h2>
+            </div>
+            <div class="music-player" data-reveal>
+                <span class="player-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20">
+                        <path d="M12 3v10.55A4 4 0 1 0 14 17V7h4V3h-6z"/>
+                    </svg>
+                </span>
                 <div class="player-info">
                     <p class="song-title">Domingo Familiar</p>
                     <p class="song-artist">Nuestra canción</p>
                 </div>
-                <button id="audio-toggle" type="button" class="audio-button" aria-label="Reproducir/Pausar música" onclick="window.toggleAudioMute?.()">
-                    <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
+                <button id="audio-toggle" type="button" class="audio-button" aria-label="Reproducir o pausar música" onclick="window.toggleAudioMute?.()">
+                    <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
                 </button>
@@ -124,16 +150,21 @@
 
         <!-- CTA Section -->
         <section class="cta" id="cta">
-            <div class="cta-content">
+            <div class="cta-content" data-reveal>
+                <div class="ornament" aria-hidden="true">
+                    <span class="ornament-line"></span>
+                    <span class="ornament-mark">&#10084;</span>
+                    <span class="ornament-line"></span>
+                </div>
                 <p class="cta-text">¿Aceptas esta invitación?</p>
                 <button class="cta-button" type="button" id="rsvp-button">Aceptar</button>
-                <p class="rsvp-confirmation" id="rsvp-confirmation" hidden>¡Gracias por aceptar! Nos vemos pronto 💕</p>
+                <p class="rsvp-confirmation" id="rsvp-confirmation" hidden>&#10003; ¡Gracias por aceptar! Nos vemos pronto 💕</p>
             </div>
         </section>
 
         <!-- Footer -->
         <footer class="footer">
-            <p>Hecho con ❤️ para ti</p>
+            <p>Hecho con &#10084; para ti</p>
         </footer>
     </main>
 
