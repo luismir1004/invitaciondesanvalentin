@@ -1,150 +1,121 @@
 /* ============================================================
-   AUDIO MODULE — Professional Web Audio Implementation
+   AUDIO MODULE — Reproductor real (progreso, tiempo, play/pausa)
    Song: Domingo Familiar
    ============================================================ */
 
-let audio = null; // HTML5 Audio Element for the track
-let isMuted = false;
+let audio = null;              // HTML5 Audio element
+let audioContext = null;       // Web Audio context (mobile unlock)
+let userPaused = false;        // true once the user deliberately pauses
 let volume = 0.5;
-let audioContext = null; // Web Audio API Context for unlocking
+
+const PLAY_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M8 5v14l11-7z"/></svg>';
+const PAUSE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>';
 
 function initAudioSystem() {
     if (audio) return;
-
-    // 1. Core Track Setup
-    // Use root-relative path (Vite public folder strategy)
     audio = new Audio('/audio/domingo_familiar.mp3');
     audio.loop = true;
     audio.volume = volume;
+    audio.preload = 'metadata';
 
-    // 2. Web Audio Context (The Key to Mobile Autoplay)
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (AudioContext) {
-        audioContext = new AudioContext();
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (Ctx) audioContext = new Ctx();
+}
+
+function fmt(seconds) {
+    if (!Number.isFinite(seconds)) return '0:00';
+    const m = Math.floor(seconds / 60);
+    const s = Math.floor(seconds % 60);
+    return m + ':' + String(s).padStart(2, '0');
+}
+
+function resumeContext() {
+    if (audioContext && audioContext.state === 'suspended') {
+        audioContext.resume().catch(() => {});
     }
 }
 
 /**
- * THE "PRO" UNLOCKER
- * Uses Web Audio API to force the browser's audio engine to wake up.
- * This is far more reliable than just playing an HTML5 audio tag.
+ * Refleja el estado real de reproducción en el botón.
  */
-export function unlockAudio() {
+export function updateButtonVisual() {
+    const btn = document.getElementById('audio-toggle');
+    if (!btn) return;
+    const playing = !!audio && !audio.paused;
+    btn.classList.toggle('playing', playing);
+    btn.setAttribute('aria-label', playing ? 'Pausar música' : 'Reproducir música');
+    btn.innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
+}
+
+/**
+ * Enlaza la UI del reproductor (barra de progreso, tiempos, seek).
+ */
+export function initPlayerUI() {
     if (!audio) initAudioSystem();
 
-    // Strategy A: Resume Web Audio Context
-    if (audioContext && audioContext.state === 'suspended') {
-        audioContext.resume().then(() => {
-            console.log("AudioContext resumed successfully.");
+    const fill = document.querySelector('.progress-fill');
+    const track = document.querySelector('.progress-bar');
+    const curEl = document.querySelector('.time-current');
+    const totEl = document.querySelector('.time-total');
+
+    const setTotal = () => { if (totEl) totEl.textContent = fmt(audio.duration); };
+
+    audio.addEventListener('loadedmetadata', setTotal);
+    if (audio.readyState >= 1) setTotal();
+
+    audio.addEventListener('timeupdate', () => {
+        if (fill && audio.duration) {
+            fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+        }
+        if (curEl) curEl.textContent = fmt(audio.currentTime);
+    });
+
+    audio.addEventListener('play', updateButtonVisual);
+    audio.addEventListener('pause', updateButtonVisual);
+
+    if (track) {
+        track.addEventListener('click', (e) => {
+            if (!audio.duration) return;
+            const rect = track.getBoundingClientRect();
+            const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
+            audio.currentTime = ratio * audio.duration;
         });
     }
 
-    // Strategy B: Play a silent buffer (The "Empty Sound" Trick)
-    // This forces the audio hardware to engage
-    if (audioContext) {
-        const buffer = audioContext.createBuffer(1, 1, 22050);
-        const source = audioContext.createBufferSource();
-        source.buffer = buffer;
-        source.connect(audioContext.destination);
-        if (source.start) source.start(0);
-        else if (source.noteOn) source.noteOn(0);
-    }
-
-    // Strategy C: Prime the Main Track (Play then Pause)
-    // We only do this if it's NOT already playing
-    if (audio.paused) {
-        const playPromise = audio.play();
-        if (playPromise !== undefined) {
-            playPromise.then(() => {
-                // Success! We are now unlocked.
-
-                // CRITICAL FIX: If we were "muted" only because of autoplay blocking, 
-                // we should reset that state now that we have a user gesture.
-                if (isMuted) {
-                    isMuted = false;
-                    updateButtonVisual();
-                }
-
-                // Immediately pause and reset so it waits for the cue.
-                audio.pause();
-                audio.currentTime = 0;
-
-                // Cleanup: We are unlocked, remove listeners to save resources
-                removeUnlockListeners();
-            }).catch(error => {
-                console.warn("Audio unlock prevented:", error);
-                // Don't remove listeners; try again next tap
-            });
-        }
-    }
+    updateButtonVisual();
 }
 
-function removeUnlockListeners() {
-    if (typeof document !== 'undefined') {
-        document.removeEventListener('touchstart', unlockAudio);
-        document.removeEventListener('click', unlockAudio);
-        document.removeEventListener('keydown', unlockAudio);
-    }
-}
-
-// Attach aggressive listeners immediately
-if (typeof window !== 'undefined') {
-    const events = ['touchstart', 'click', 'keydown'];
-    // Use passive: false to ensure we can intercept if needed, though usually not required for audio
-    events.forEach(event => document.addEventListener(event, unlockAudio, { once: false, passive: false }));
-}
-
-export function updateButtonVisual() {
-    var btn = document.getElementById('audio-toggle');
-    if (btn) {
-        btn.classList.toggle('muted', isMuted);
-        btn.innerHTML = isMuted ?
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17.25 12h-2.25m-3.75 0h-2.25M4.501 12h-2.25m19.5 0h-2.25m-15 0h-2.25" stroke-linecap="round" stroke-linejoin="round"/></svg>' :
-            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M19.114 5.636a9 9 0 0 1 0 12.728M16.463 8.288a5.25 5.25 0 0 1 0 7.424M6.75 8.25l4.72-4.72a.75.75 0 0 1 1.28.53v15.88a.75.75 0 0 1-1.28.53l-4.72-4.72H4.51c-.88 0-1.704-.507-1.938-1.354A9.009 9.009 0 0 1 2.25 12c0-.83.112-1.633.322-2.396C2.806 8.756 3.63 8.25 4.51 8.25H6.75z" stroke-linecap="round" stroke-linejoin="round"/></svg>';
-    }
-}
-
-export function playShimmerSound() {
-    // Keep synthesized shimmer for interactions if desired
-}
-
+/**
+ * Reproduce la melodía en la primera interacción del usuario,
+ * a menos que la haya pausado a propósito.
+ */
 export function playAmbientMelody() {
     if (!audio) initAudioSystem();
+    if (userPaused) return;
 
-    // Strategy: If we are not MUTED by choice, we play.
-    if (!isMuted) {
-        // Force resume context just in case
-        if (audioContext && audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-
-        var promise = audio.play();
-        if (promise !== undefined) {
-            promise.catch(e => {
-                console.warn("Autoplay blocked, waiting for interaction:", e);
-                // We do NOT set isMuted=true here anymore. 
-                // We just let it fail silently, because the global unlocker 
-                // will eventually catch a click and start it if needed.
-                updateButtonVisual();
-            });
-        }
+    resumeContext();
+    const promise = audio.play();
+    if (promise !== undefined) {
+        promise.then(updateButtonVisual).catch((e) => {
+            console.warn('Autoplay bloqueado, esperando interacción:', e);
+            updateButtonVisual();
+        });
     }
 }
 
-export function toggleAudioMute() {
+/**
+ * Play/pausa real, controlado por el usuario.
+ */
+export function togglePlay() {
     if (!audio) initAudioSystem();
 
-    isMuted = !isMuted;
-
-    if (isMuted) {
-        audio.pause();
+    if (audio.paused) {
+        userPaused = false;
+        resumeContext();
+        audio.play().catch((e) => console.warn('Play error:', e));
     } else {
-        // If unmuting, ensure context is running
-        if (audioContext && audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-        audio.play().catch(e => console.error("Play error:", e));
+        userPaused = true;
+        audio.pause();
     }
-
     updateButtonVisual();
 }

@@ -1,27 +1,22 @@
 /* ============================================================
-   APP — Minimalista Moderno
+   APP — Editorial Minimalista (Aniversario)
    ============================================================ */
 
-import { playAmbientMelody, toggleAudioMute, updateButtonVisual } from './modules/audio.js';
+import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI } from './modules/audio.js';
 import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
+import { initEvent } from './modules/event.js';
 
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize counter
+    // Contador desde el inicio de la relación
     const relationshipStart = new Date('2025-06-20T00:00:00');
     initCounter(relationshipStart);
 
-    // Setup audio
     setupAudio();
-
-    // Setup buttons
     setupButtons();
-
-    // Setup photo lightbox
     initLightbox();
-
-    // Setup scroll reveal
+    initEvent();
     initScrollReveal();
 });
 
@@ -50,20 +45,17 @@ function initScrollReveal() {
 
 // ── Audio Setup ────────────────────────────────────────────
 function setupAudio() {
-    const audioButton = document.getElementById('audio-toggle');
-    if (audioButton) {
-        // Expose toggle globally for the button
-        window.toggleAudioMute = toggleAudioMute;
-        updateButtonVisual();
-    }
+    // Expose play/pause toggle for the button
+    window.togglePlay = togglePlay;
+    initPlayerUI();
+    updateButtonVisual();
 
-    // Play ambient melody on user interaction
+    // Play on first user interaction (mobile autoplay unlock)
     const playOnInteraction = () => {
         playAmbientMelody();
         document.removeEventListener('click', playOnInteraction);
         document.removeEventListener('touchstart', playOnInteraction);
     };
-
     document.addEventListener('click', playOnInteraction);
     document.addEventListener('touchstart', playOnInteraction);
 }
@@ -80,12 +72,8 @@ function setupButtons() {
             const message = encodeURIComponent('¡Acepto la invitación! Un año contigo, Luis 💕');
             window.open(`https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
 
-            if (confirmation) {
-                confirmation.hidden = false;
-            }
+            if (confirmation) confirmation.hidden = false;
             rsvpButton.disabled = true;
         });
     }
-
-    // Audio button already has onclick in HTML
 }
