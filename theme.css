@@ -335,6 +335,19 @@ section > * {
     transform: scale(0.95);
 }
 
+.cta-button:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+}
+
+.rsvp-confirmation {
+    margin-top: var(--spacing-md);
+    font-size: 1rem;
+    color: var(--accent);
+    font-weight: 400;
+}
+
 /* ── Footer ──────────────────────────────────────────────── */
 .footer {
     background-color: var(--bg-primary);

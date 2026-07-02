@@ -1,10 +1,11 @@
 {
-  "name": "Valentine's Experience",
-  "short_name": "Para Ti ❤️",
+  "name": "Un Año Contigo",
+  "short_name": "Un Año Contigo",
+  "description": "Para Alejandra: un año celebrando cada día a tu lado.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#050505",
-  "theme_color": "#050505",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "orientation": "portrait",
   "icons": [
     {

@@ -5,13 +5,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Año Contigo ❤️</title>
-    <meta name="description" content="Celebrando un año de amor.">
+    <meta name="description" content="Para Alejandra: un año celebrando cada día a tu lado.">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
-    <meta property="og:title" content="Un Año Contigo — Aniversario">
-    <meta property="og:description" content="Celebrando nuestro primer aniversario.">
+    <meta property="og:title" content="Un Año Contigo — Para Alejandra ❤️">
+    <meta property="og:description" content="Un año celebrando cada día a tu lado. Con amor, Luis.">
     <meta property="theme-color" content="#FFFFFF">
+
+    <!-- PWA / Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="apple-touch-icon" href="/assets/icon-192.png">
+    <link rel="manifest" href="/manifest.json">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -46,7 +51,7 @@
 
         <!-- Counter Section -->
         <section class="counter" id="counter">
-            <p class="counter-label">Llevamos compartiendo momentos</p>
+            <h2 class="counter-label">Llevamos compartiendo momentos</h2>
             <div class="counter-grid">
                 <div class="counter-item">
                     <span class="counter-value" id="counter-days">0</span>
@@ -69,7 +74,7 @@
 
         <!-- Photos Section -->
         <section class="photos" id="photos">
-            <p class="section-label">Nuestros Recuerdos</p>
+            <h2 class="section-label">Nuestros Recuerdos</h2>
             <div class="masonry-grid">
                 <div class="photo-card photo-tall">
                     <img src="assets/1B4ED299-73D3-440E-B6CE-07CA598536BB_1_105_c.jpeg" alt="Momentos únicos" loading="lazy" decoding="async">
@@ -94,13 +99,13 @@
 
         <!-- Music Section -->
         <section class="music" id="music">
-            <p class="section-label">Nuestra Música</p>
+            <h2 class="section-label">Nuestra Música</h2>
             <div class="music-player">
                 <div class="player-info">
-                    <p class="song-title">Contigo</p>
-                    <p class="song-artist">Tainy</p>
+                    <p class="song-title">Domingo Familiar</p>
+                    <p class="song-artist">Nuestra canción</p>
                 </div>
-                <button id="audio-toggle" class="audio-button" aria-label="Reproducir/Pausar música" onclick="window.toggleAudioMute?.()">
+                <button id="audio-toggle" type="button" class="audio-button" aria-label="Reproducir/Pausar música" onclick="window.toggleAudioMute?.()">
                     <svg viewBox="0 0 24 24" fill="currentColor" width="24" height="24">
                         <path d="M8 5v14l11-7z"/>
                     </svg>
@@ -112,7 +117,8 @@
         <section class="cta" id="cta">
             <div class="cta-content">
                 <p class="cta-text">¿Aceptas esta invitación?</p>
-                <button class="cta-button" id="rsvp-button">Aceptar</button>
+                <button class="cta-button" type="button" id="rsvp-button">Aceptar</button>
+                <p class="rsvp-confirmation" id="rsvp-confirmation" hidden>¡Gracias por aceptar! Nos vemos pronto 💕</p>
             </div>
         </section>
 

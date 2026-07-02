@@ -39,11 +39,21 @@ function setupAudio() {
 }
 
 // ── Button Setup ───────────────────────────────────────────
+const LUIS_WHATSAPP_NUMBER = '584121955216';
+
 function setupButtons() {
     const rsvpButton = document.getElementById('rsvp-button');
+    const confirmation = document.getElementById('rsvp-confirmation');
+
     if (rsvpButton) {
         rsvpButton.addEventListener('click', () => {
-            alert('¡Gracias por aceptar la invitación! 💕');
+            const message = encodeURIComponent('¡Acepto la invitación! Un año contigo, Luis 💕');
+            window.open(`https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
+
+            if (confirmation) {
+                confirmation.hidden = false;
+            }
+            rsvpButton.disabled = true;
         });
     }
 
