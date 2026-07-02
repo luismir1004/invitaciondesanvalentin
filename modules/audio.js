@@ -1,6 +1,6 @@
 /* ============================================================
    AUDIO MODULE — Professional Web Audio Implementation
-   Song: Rawayana - Domingo Familiar
+   Song: Tainy - Contigo
    ============================================================ */
 
 let audio = null; // HTML5 Audio Element for the track
@@ -13,7 +13,7 @@ function initAudioSystem() {
 
     // 1. Core Track Setup
     // Use root-relative path (Vite public folder strategy)
-    audio = new Audio('/audio/domingo_familiar.mp3');
+    audio = new Audio('/audio/contigo.mp3');
     audio.loop = true;
     audio.volume = volume;
 
