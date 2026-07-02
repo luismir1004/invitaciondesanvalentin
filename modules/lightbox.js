@@ -16,6 +16,9 @@ export function initLightbox() {
     const images = Array.from(gallery.querySelectorAll('img'));
     if (!images.length) return;
     let index = 0;
+    let lastFocused = null;
+
+    const focusable = () => [closeBtn, prevBtn, nextBtn].filter(Boolean);
 
     function render() {
         const img = images[index];
@@ -26,15 +29,20 @@ export function initLightbox() {
 
     function open(i) {
         index = i;
+        lastFocused = document.activeElement;
         render();
         lightbox.hidden = false;
         document.body.style.overflow = 'hidden';
+        if (closeBtn) closeBtn.focus();
     }
 
     function close() {
         lightbox.hidden = true;
         imgEl.src = '';
         document.body.style.overflow = '';
+        if (lastFocused && typeof lastFocused.focus === 'function') {
+            lastFocused.focus();
+        }
     }
 
     function go(dir) {
@@ -57,9 +65,26 @@ export function initLightbox() {
 
     document.addEventListener('keydown', (e) => {
         if (lightbox.hidden) return;
-        if (e.key === 'Escape') close();
-        else if (e.key === 'ArrowLeft') go(-1);
-        else if (e.key === 'ArrowRight') go(1);
+        if (e.key === 'Escape') {
+            close();
+        } else if (e.key === 'ArrowLeft') {
+            go(-1);
+        } else if (e.key === 'ArrowRight') {
+            go(1);
+        } else if (e.key === 'Tab') {
+            // Focus trap dentro del lightbox
+            const items = focusable();
+            if (!items.length) return;
+            const first = items[0];
+            const last = items[items.length - 1];
+            if (e.shiftKey && document.activeElement === first) {
+                e.preventDefault();
+                last.focus();
+            } else if (!e.shiftKey && document.activeElement === last) {
+                e.preventDefault();
+                first.focus();
+            }
+        }
     });
 
     // Swipe (mobile)

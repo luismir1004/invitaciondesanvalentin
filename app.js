@@ -6,6 +6,7 @@ import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI } from 
 import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initEvent } from './modules/event.js';
+import { initIntro } from './modules/intro.js';
 
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -13,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const relationshipStart = new Date('2025-06-20T00:00:00');
     initCounter(relationshipStart);
 
+    initIntro();
     setupAudio();
     setupButtons();
     initLightbox();

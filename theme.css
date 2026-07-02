@@ -73,6 +73,12 @@ img {
     display: block;
 }
 
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
 .container {
     max-width: 100%;
     overflow-x: hidden;
@@ -144,6 +150,91 @@ section > * {
     color: var(--gold);
     font-size: 0.85rem;
     line-height: 1;
+}
+
+/* ── Intro / Welcome ─────────────────────────────────────── */
+.intro {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.intro[hidden] {
+    display: none;
+}
+
+.intro-veil {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 51%;
+    background-color: var(--bg-primary);
+    transition: transform 1s var(--ease-out);
+}
+
+.intro-veil-left {
+    left: 0;
+}
+
+.intro-veil-right {
+    right: 0;
+}
+
+.intro.is-open .intro-veil-left {
+    transform: translateX(-100%);
+}
+
+.intro.is-open .intro-veil-right {
+    transform: translateX(100%);
+}
+
+.intro-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: var(--space-md);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.intro.is-open .intro-content {
+    opacity: 0;
+    transform: translateY(-14px);
+}
+
+.intro-eyebrow {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: var(--space-md);
+}
+
+.intro-monogram {
+    font-family: var(--font-serif);
+    font-size: clamp(3.5rem, 14vw, 5.5rem);
+    font-weight: 500;
+    line-height: 1;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+}
+
+.intro-sub {
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.2rem, 4vw, 1.6rem);
+    color: var(--accent-deep);
+    margin-bottom: var(--space-lg);
+}
+
+.intro-button {
+    margin-top: var(--space-sm);
 }
 
 /* ── Hero Section ────────────────────────────────────────── */
@@ -265,9 +356,45 @@ section > * {
     margin-top: 0.2em;
 }
 
+/* ── Reasons Section ─────────────────────────────────────── */
+.reasons {
+    background-color: var(--bg-primary);
+}
+
+.reasons-grid {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-md);
+    width: 100%;
+}
+
+.reason-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    padding-top: var(--space-sm);
+    border-top: 1px solid var(--line);
+}
+
+.reason-number {
+    font-family: var(--font-serif);
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--gold);
+    line-height: 1;
+}
+
+.reason-text {
+    font-family: var(--font-serif);
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: var(--ink-soft);
+}
+
 /* ── Counter Section ─────────────────────────────────────── */
 .counter {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-alt);
 }
 
 .counter-grid {
@@ -310,7 +437,7 @@ section > * {
 
 /* ── History / Timeline ──────────────────────────────────── */
 .history {
-    background-color: var(--bg-alt);
+    background-color: var(--bg-primary);
 }
 
 .timeline {
@@ -348,9 +475,9 @@ section > * {
     width: 15px;
     height: 15px;
     border-radius: 50%;
-    background: var(--bg-alt);
+    background: var(--bg-primary);
     border: 2px solid var(--gold);
-    box-shadow: 0 0 0 4px var(--bg-alt);
+    box-shadow: 0 0 0 4px var(--bg-primary);
 }
 
 .timeline-date {
@@ -381,7 +508,7 @@ section > * {
 
 /* ── Photos Section ──────────────────────────────────────── */
 .photos {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-alt);
 }
 
 .photos > .section-head,
@@ -433,7 +560,7 @@ section > * {
 
 /* ── Music Section ───────────────────────────────────────── */
 .music {
-    background-color: var(--bg-alt);
+    background-color: var(--bg-primary);
 }
 
 .music-player {
@@ -542,7 +669,7 @@ section > * {
 
 /* ── Event Section ───────────────────────────────────────── */
 .event {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-alt);
 }
 
 .event-card {
@@ -634,7 +761,7 @@ section > * {
 
 /* ── CTA Section ─────────────────────────────────────────── */
 .cta {
-    background-color: var(--bg-alt);
+    background-color: var(--bg-primary);
 }
 
 .cta-content {
@@ -698,7 +825,7 @@ section > * {
 
 /* ── Footer ──────────────────────────────────────────────── */
 .footer {
-    background-color: var(--bg-primary);
+    background-color: var(--bg-alt);
     padding: var(--space-lg) var(--space-md);
     text-align: center;
 }
@@ -884,6 +1011,11 @@ section > * {
     .counter-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: var(--space-sm);
+    }
+
+    .reasons-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
     }
 
     .photo-card img {

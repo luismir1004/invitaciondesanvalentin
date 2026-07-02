@@ -37,6 +37,23 @@
 </head>
 
 <body>
+    <!-- Intro / Welcome -->
+    <div id="intro" class="intro">
+        <div class="intro-veil intro-veil-left" aria-hidden="true"></div>
+        <div class="intro-veil intro-veil-right" aria-hidden="true"></div>
+        <div class="intro-content">
+            <span class="intro-eyebrow">Estás invitada</span>
+            <p class="intro-monogram">L &amp; A</p>
+            <div class="ornament" aria-hidden="true">
+                <span class="ornament-line"></span>
+                <span class="ornament-mark">&#10084;</span>
+                <span class="ornament-line"></span>
+            </div>
+            <p class="intro-sub">Un Año Contigo</p>
+            <button id="intro-open" type="button" class="cta-button intro-button">Abrir la invitación</button>
+        </div>
+    </div>
+
     <main class="container">
         <!-- Hero Section -->
         <section class="hero" id="hero">
@@ -69,6 +86,40 @@
                 <p class="message-text">Y hoy, un año después, te sigo eligiendo como se elige el amanecer: sin dudarlo, cada mañana.</p>
                 <p class="message-signature">Tuyo, hoy y siempre,<br><span class="signature-name">Luis</span></p>
             </div>
+        </section>
+
+        <!-- Reasons Section -->
+        <section class="reasons" id="razones">
+            <div class="section-head" data-reveal>
+                <span class="section-eyebrow">Por qué te amo</span>
+                <h2 class="section-title">Razones para amarte</h2>
+            </div>
+            <ul class="reasons-grid">
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">01</span>
+                    <p class="reason-text">Por tu risa, que arregla hasta el peor de mis días.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">02</span>
+                    <p class="reason-text">Por la calma que siento cuando tu mano encuentra la mía.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">03</span>
+                    <p class="reason-text">Por la forma en que haces que lo simple se sienta extraordinario.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">04</span>
+                    <p class="reason-text">Por cómo me escuchas, incluso cuando no encuentro las palabras.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">05</span>
+                    <p class="reason-text">Por soñar conmigo, aun cuando el mundo nos pide ser realistas.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">06</span>
+                    <p class="reason-text">Y por mil razones más que no caben en una pantalla.</p>
+                </li>
+            </ul>
         </section>
 
         <!-- Counter Section -->
@@ -262,7 +313,7 @@
                 </div>
                 <p class="cta-text">¿Aceptas esta invitación?</p>
                 <button class="cta-button" type="button" id="rsvp-button">Aceptar</button>
-                <p class="rsvp-confirmation" id="rsvp-confirmation" hidden>&#10003; ¡Gracias por aceptar! Nos vemos pronto 💕</p>
+                <p class="rsvp-confirmation" id="rsvp-confirmation" role="status" aria-live="polite" hidden>&#10003; ¡Gracias por aceptar! Nos vemos pronto 💕</p>
             </div>
         </section>
 
@@ -273,7 +324,7 @@
     </main>
 
     <!-- Lightbox -->
-    <div id="lightbox" class="lightbox" hidden>
+    <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>
         <button type="button" class="lightbox-close" aria-label="Cerrar imagen">&times;</button>
         <button type="button" class="lightbox-nav lightbox-prev" aria-label="Foto anterior">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="26" height="26"><path d="M15 5l-7 7 7 7" stroke-linecap="round" stroke-linejoin="round"/></svg>
