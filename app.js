@@ -11,7 +11,7 @@ import { initIntro } from './modules/intro.js';
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
     // Contador desde el inicio de la relación
-    const relationshipStart = new Date('2025-06-20T00:00:00');
+    const relationshipStart = new Date('2025-07-20T00:00:00');
     initCounter(relationshipStart);
 
     initIntro();
