@@ -4,19 +4,27 @@
 
 /* ── CSS Custom Properties ────────────────────────────────── */
 :root {
-  /* Colors — Boutique Floral (Refined High Contrast) */
-  --dusty-rose: #c4727f;
-  --dusty-rose-light: #d4919b;
-  --champagne: #e8d5b7;
-  --champagne-light: #f0e4ce;
+  /* Colors — Luxury Platinum + Gold Anniversary (Refined High Contrast) */
+  /* Primary Anniversary Tones */
+  --platinum: #e8e8e8;
+  --platinum-dark: #d4d4d4;
+  --silver-accent: #c0c0c0;
+  --sapphire-deep: #1a4d7f;
+  --sapphire-light: #2d5fa3;
+
+  /* Legacy names remapped to new palette (backwards compatibility) */
+  --dusty-rose: #a87a7a;
+  --dusty-rose-light: #c09999;
+  --champagne: #f4e8d0;
+  --champagne-light: #f9ecdc;
   --sage: #8a9a7b;
   --sage-deep: #5e7a52;
   /* Deeper for better text contrast */
-  --gold-accent: #c9a96e;
-  --gold-light: #dbc490;
-  --gold-linear: linear-gradient(135deg, #bf953f 0%, #fcf6ba 50%, #b38728 100%);
-  --mauve: #b88ba0;
-  --warm-peach: #d4a07a;
+  --gold-accent: #d4af37;
+  --gold-light: #e8c547;
+  --gold-linear: linear-gradient(135deg, #c9a96e 0%, #f4d89f 50%, #b8860b 100%);
+  --mauve: #8a7a8a;
+  --warm-peach: #c9a97a;
   --cream: #fef5ed;
 
   /* Alpha for Glass */
@@ -42,13 +50,13 @@
   --space-2xl: clamp(3.5rem, 7vw, 5rem);
   --space-3xl: clamp(4rem, 9vw, 7rem);
 
-  /* Glass — Refined Thin */
-  --glass-blur: 24px;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-strong: rgba(255, 255, 255, 0.08);
-  --glass-border: rgba(255, 255, 255, 0.08);
-  /* Thinner interaction */
-  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  /* Glass — Refined Thin & Luxurious */
+  --glass-blur: 28px;
+  --glass-bg: rgba(255, 255, 255, 0.02);
+  --glass-bg-strong: rgba(255, 255, 255, 0.06);
+  --glass-border: rgba(255, 255, 255, 0.10);
+  /* More refined interaction */
+  --glass-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
 
   /* Radius */
   --radius-sm: 8px;
@@ -162,11 +170,11 @@ header {
   inset: 0;
   z-index: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, var(--dusty-rose) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 20%, var(--sage) 0%, transparent 50%),
+    radial-gradient(ellipse at 20% 50%, var(--sapphire-light) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, var(--gold-accent) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 80%, var(--champagne) 0%, transparent 50%),
-    radial-gradient(ellipse at 10% 90%, var(--sage-deep) 0%, transparent 40%),
-    radial-gradient(ellipse at 90% 70%, var(--mauve) 0%, transparent 45%);
+    radial-gradient(ellipse at 10% 90%, var(--sapphire-deep) 0%, transparent 40%),
+    radial-gradient(ellipse at 90% 70%, var(--platinum) 0%, transparent 45%);
   background-color: #12101a;
   background-size: 200% 200%;
   animation: meshMove 20s ease-in-out infinite alternate;
@@ -463,6 +471,8 @@ header {
   font-size: 3.5rem;
   font-weight: 400;
   font-style: italic;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   /* 🌟 LUXURY UPGRADE: Gold Gradient Text */
   background: linear-gradient(135deg, #e8d5b7 0%, #c9a96e 50%, #8a6e28 100%);
   -webkit-background-clip: text;
@@ -630,9 +640,10 @@ header {
 }
 
 .clear-btn:hover {
-  border-color: var(--white-alpha-40);
+  border-color: var(--gold-accent);
   color: var(--white-alpha-90);
-  transform: scale(1.1) rotate(90deg);
+  transform: scale(1.12) rotate(90deg);
+  box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 /* ════════════════════════════════════════════════════════════
@@ -674,10 +685,10 @@ header {
 .envelope-back {
   position: absolute;
   inset: 0;
-  background: #2a0a10;
-  /* Deep Burgundy */
+  background: #0d2a47;
+  /* Deep Blue Sophisticated */
   border-radius: var(--radius-sm);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 12px 48px rgba(0, 0, 0, 0.25);
   transform: translateZ(-1px);
 }
 
@@ -698,13 +709,13 @@ header {
   transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* 3. Front Face (Royal Burgundy Velvet) */
+/* 3. Front Face (Royal Blue Velvet) */
 .envelope-body {
   position: absolute;
   inset: 0;
   z-index: 10;
-  /* Deep Velvet Red */
-  background: linear-gradient(145deg, #3d0e14, #2a0a10);
+  /* Deep Velvet Blue */
+  background: linear-gradient(145deg, #1a3a5c, #0d2a47);
 
   /* Velvet Sheen */
   box-shadow:
@@ -742,8 +753,8 @@ header {
   transform-origin: top center;
   transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
 
-  /* Matching Burgundy */
-  background: linear-gradient(160deg, #4a1219, #2a0a10);
+  /* Matching Blue */
+  background: linear-gradient(160deg, #1f4a6b, #0d2a47);
 
   /* Paper Texture */
   clip-path: polygon(0 0, 100% 0, 50% 100%);
@@ -795,7 +806,7 @@ header {
 
 .envelope-seal:hover {
   transform: translate(-50%, -50%) translateZ(5px) scale(1.1) rotate(5deg);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4), 0 0 15px rgba(252, 246, 186, 0.4);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3), 0 0 20px rgba(244, 216, 159, 0.25);
   /* Glow */
 }
 
@@ -864,7 +875,7 @@ header {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, rgba(184, 36, 94, 0.35), rgba(108, 74, 182, 0.35));
+  background: linear-gradient(135deg, rgba(42, 77, 127, 0.35), rgba(108, 74, 182, 0.25));
   opacity: 0;
   transition: opacity 0.4s var(--ease-smooth);
   border-radius: inherit;
@@ -927,7 +938,7 @@ header {
     /* Subtle outer gold */
     inset 0 0 0 6px #0f0f0f,
     /* Spacing */
-    inset 0 0 0 8px linear-gradient(135deg, #bf953f, #fcf6ba, #b38728);
+    inset 0 0 0 8px linear-gradient(135deg, #c9a96e, #f4d89f, #a8860b);
   /* Gold Foil Gradient Border (Simulated) */
 
   border: 1px solid rgba(255, 255, 255, 0.05);
@@ -976,10 +987,12 @@ header {
   font-family: var(--font-serif);
   font-size: 3rem;
   font-weight: 400;
-  line-height: 1;
+  line-height: 1.2;
+  letter-spacing: 0.03em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
   letter-spacing: -0.02em;
   /* Luxury Gradient Text */
-  background: linear-gradient(135deg, #fcf6ba, #bf953f, #b38728, #fcf6ba);
+  background: linear-gradient(135deg, #f4d89f, #d4af37, #a8860b, #f4d89f);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -1039,6 +1052,8 @@ header {
   font-size: 1.15rem;
   font-weight: 300;
   line-height: 1.8;
+  letter-spacing: 0.01em;
+  line-height: 1.8;
   color: rgba(255, 255, 255, 0.85);
   /* Light grey/white */
   margin-bottom: var(--space-md);
@@ -1053,7 +1068,7 @@ header {
   font-family: 'Great Vibes', cursive;
   font-size: 2.2rem;
   /* Gold Signature */
-  background: linear-gradient(135deg, #bf953f, #fcf6ba);
+  background: linear-gradient(135deg, #c9a96e, #f4d89f);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1292,12 +1307,12 @@ header {
 }
 
 .memory-card:hover {
-  transform: translateY(-4px);
+  transform: translateY(-6px);
   box-shadow:
-    0 20px 25px -5px rgba(0, 0, 0, 0.2),
-    0 10px 10px -5px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: rgba(255, 255, 255, 0.3);
+    0 25px 35px -8px rgba(0, 0, 0, 0.25),
+    0 12px 15px -5px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
 }
 
 /* Base CSS for Intelligent Images */
@@ -1378,6 +1393,7 @@ header {
   font-family: var(--font-serif);
   font-size: 1.1rem;
   font-style: italic;
+  letter-spacing: 0.02em;
   color: var(--gold-light);
   margin-bottom: var(--space-md);
   letter-spacing: 0.05em;
@@ -1485,9 +1501,11 @@ header {
 
 .counter-value {
   font-family: var(--font-serif);
-  font-size: 3rem;
-  /* Impactful size */
+  font-size: 3.2rem;
+  /* More impactful size */
   font-weight: 400;
+  letter-spacing: 0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
   /* Thin elegance */
   background: linear-gradient(135deg, #fff 20%, #e8d5b7 50%, #c9a96e 100%);
   -webkit-background-clip: text;
@@ -1505,6 +1523,7 @@ header {
   font-family: var(--font-sans);
   font-size: 0.75rem;
   text-transform: uppercase;
+  letter-spacing: 0.04em;
   letter-spacing: 0.2em;
   color: rgba(232, 213, 183, 0.6);
   /* Champagne Text */
@@ -1713,7 +1732,7 @@ header {
 }
 
 .rsvp-accept:hover {
-  box-shadow: 0 8px 30px rgba(201, 169, 110, 0.5);
+  box-shadow: 0 10px 40px rgba(212, 175, 55, 0.35);
   transform: scale(1.05);
 }
 
@@ -2077,8 +2096,9 @@ header {
 }
 
 .audio-toggle:hover {
-  transform: scale(1.1);
+  transform: scale(1.12);
   border-color: var(--gold-accent);
+  box-shadow: var(--glass-shadow), 0 0 20px rgba(212, 175, 55, 0.25);
 }
 
 .audio-toggle.muted {
@@ -2305,7 +2325,8 @@ header {
   touch-action: none;
   /* Prevent scroll while holding */
   transform: scale(1);
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), filter 0.3s var(--ease-smooth);
+  filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.2));
 }
 
 .royal-seal-btn:active {
