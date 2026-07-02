@@ -587,6 +587,16 @@ section > * {
     transform: scale(1.06);
 }
 
+.photo-card img {
+    cursor: pointer;
+}
+
+/* Foco por teclado: offset negativo para que no lo recorte overflow:hidden */
+.photo-card img:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -4px;
+}
+
 .photo-card.photo-tall {
     grid-row: span 2;
 }

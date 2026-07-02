@@ -19,6 +19,15 @@ export function initLightbox() {
     let lastFocused = null;
     let swapping = false;
 
+    // Accesibilidad: hace cada foto operable por teclado (Enter/Espacio).
+    images.forEach((img) => {
+        img.setAttribute('role', 'button');
+        img.setAttribute('tabindex', '0');
+        if (!img.hasAttribute('aria-label')) {
+            img.setAttribute('aria-label', `Ampliar foto: ${img.alt || 'recuerdo'}`);
+        }
+    });
+
     const focusable = () => [closeBtn, prevBtn, nextBtn].filter(Boolean);
 
     function render() {
@@ -66,6 +75,16 @@ export function initLightbox() {
     gallery.addEventListener('click', (e) => {
         const img = e.target.closest('img');
         if (img) open(images.indexOf(img));
+    });
+
+    // Apertura por teclado (Enter / Espacio) sobre las fotos.
+    gallery.addEventListener('keydown', (e) => {
+        if (e.key !== 'Enter' && e.key !== ' ') return;
+        const img = e.target.closest('img');
+        if (img) {
+            e.preventDefault();
+            open(images.indexOf(img));
+        }
     });
 
     if (closeBtn) closeBtn.addEventListener('click', close);
