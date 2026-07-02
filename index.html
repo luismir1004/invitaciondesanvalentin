@@ -11,7 +11,16 @@
     <meta property="og:type" content="website">
     <meta property="og:title" content="Un Año Contigo — Para Alejandra ❤️">
     <meta property="og:description" content="Un año celebrando cada día a tu lado. Con amor, Luis.">
-    <meta property="theme-color" content="#FFFFFF">
+    <meta property="og:image" content="/assets/og-preview.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="theme-color" content="#FFFFFF">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Un Año Contigo — Para Alejandra ❤️">
+    <meta name="twitter:description" content="Un año celebrando cada día a tu lado. Con amor, Luis.">
+    <meta name="twitter:image" content="/assets/og-preview.jpg">
 
     <!-- PWA / Icons -->
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -75,24 +84,24 @@
         <!-- Photos Section -->
         <section class="photos" id="photos">
             <h2 class="section-label">Nuestros Recuerdos</h2>
-            <div class="masonry-grid">
+            <div class="masonry-grid" id="masonry-grid">
                 <div class="photo-card photo-tall">
-                    <img src="assets/1B4ED299-73D3-440E-B6CE-07CA598536BB_1_105_c.jpeg" alt="Momentos únicos" loading="lazy" decoding="async">
+                    <img src="assets/1B4ED299-73D3-440E-B6CE-07CA598536BB_1_105_c.jpeg" alt="Momentos únicos" width="750" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-card">
-                    <img src="assets/1DDEEA17-9661-4E66-A144-544FE9B2EE1F_1_105_c.jpeg" alt="Viajando a tu lado" loading="lazy" decoding="async">
+                    <img src="assets/1DDEEA17-9661-4E66-A144-544FE9B2EE1F_1_105_c.jpeg" alt="Viajando a tu lado" width="750" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-card">
-                    <img src="assets/387AE7EE-CD9C-4D67-8C7F-53235A1E9536_1_105_c.jpeg" alt="Felicidad pura" loading="lazy" decoding="async">
+                    <img src="assets/387AE7EE-CD9C-4D67-8C7F-53235A1E9536_1_105_c.jpeg" alt="Felicidad pura" width="750" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-card photo-tall">
-                    <img src="assets/3CC4B55C-E7AB-482E-BD1D-225C0694A19B_1_105_c.jpeg" alt="Aventuras compartidas" loading="lazy" decoding="async">
+                    <img src="assets/3CC4B55C-E7AB-482E-BD1D-225C0694A19B_1_105_c.jpeg" alt="Aventuras compartidas" width="1000" height="563" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-card">
-                    <img src="assets/6A610084-9BF4-4190-819F-235F23BA71E4_1_105_c.jpeg" alt="Tú y yo" loading="lazy" decoding="async">
+                    <img src="assets/6A610084-9BF4-4190-819F-235F23BA71E4_1_105_c.jpeg" alt="Tú y yo" width="563" height="1000" loading="lazy" decoding="async">
                 </div>
                 <div class="photo-card">
-                    <img src="assets/8C608867-3085-47CA-B0F1-E7A589FDB036_1_105_c.jpeg" alt="Para siempre" loading="lazy" decoding="async">
+                    <img src="assets/8C608867-3085-47CA-B0F1-E7A589FDB036_1_105_c.jpeg" alt="Para siempre" width="788" height="996" loading="lazy" decoding="async">
                 </div>
             </div>
         </section>
@@ -127,6 +136,12 @@
             <p>Hecho con ❤️ para ti</p>
         </footer>
     </main>
+
+    <!-- Lightbox -->
+    <div id="lightbox" class="lightbox" hidden>
+        <button type="button" class="lightbox-close" aria-label="Cerrar imagen">&times;</button>
+        <img class="lightbox-image" id="lightbox-image" src="" alt="">
+    </div>
 
     <!-- Scripts -->
     <script type="module" src="app.js"></script>

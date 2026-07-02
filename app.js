@@ -4,6 +4,7 @@
 
 import { playAmbientMelody, toggleAudioMute, updateButtonVisual } from './modules/audio.js';
 import { initCounter } from './modules/counter.js';
+import { initLightbox } from './modules/lightbox.js';
 
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
@@ -16,6 +17,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Setup buttons
     setupButtons();
+
+    // Setup photo lightbox
+    initLightbox();
 });
 
 // ── Audio Setup ────────────────────────────────────────────
