@@ -79,6 +79,11 @@ img {
     border-radius: 3px;
 }
 
+::selection {
+    background: var(--accent-soft);
+    color: var(--accent-deep);
+}
+
 .container {
     max-width: 100%;
     overflow-x: hidden;
@@ -233,8 +238,14 @@ section > * {
     margin-bottom: var(--space-lg);
 }
 
+@keyframes gentlePulse {
+    0%, 100% { box-shadow: 0 6px 20px rgba(110, 42, 56, 0.28); }
+    50%      { box-shadow: 0 6px 28px rgba(110, 42, 56, 0.50), 0 0 0 6px rgba(140, 59, 74, 0.10); }
+}
+
 .intro-button {
     margin-top: var(--space-sm);
+    animation: gentlePulse 2.8s var(--ease-out) infinite;
 }
 
 /* ── Hero Section ────────────────────────────────────────── */
@@ -375,6 +386,11 @@ section > * {
     gap: 0.4rem;
     padding-top: var(--space-sm);
     border-top: 1px solid var(--line);
+    transition: border-color var(--transition);
+}
+
+.reason-item:hover {
+    border-color: var(--gold-soft);
 }
 
 .reason-number {
@@ -383,6 +399,12 @@ section > * {
     font-weight: 600;
     color: var(--gold);
     line-height: 1;
+    transition: color var(--transition), transform var(--transition);
+}
+
+.reason-item:hover .reason-number {
+    color: var(--accent);
+    transform: translateX(3px);
 }
 
 .reason-text {
@@ -488,6 +510,12 @@ section > * {
     background: var(--bg-primary);
     border: 2px solid var(--gold);
     box-shadow: 0 0 0 4px var(--bg-primary);
+    transform: scale(0);
+    transition: transform 0.5s var(--ease-out);
+}
+
+.timeline-item.is-visible .timeline-dot {
+    transform: scale(1);
 }
 
 .timeline-date {
@@ -632,7 +660,13 @@ section > * {
     background-color: var(--accent-soft);
     border-radius: 100px;
     cursor: pointer;
-    overflow: hidden;
+    overflow: visible;
+    position: relative;
+    transition: height 0.2s var(--ease-out);
+}
+
+.progress-bar:hover {
+    height: 8px;
 }
 
 .progress-fill {
@@ -641,6 +675,25 @@ section > * {
     background: linear-gradient(to right, var(--accent), var(--accent-deep));
     border-radius: 100px;
     transition: width 0.15s linear;
+    position: relative;
+}
+
+.progress-fill::after {
+    content: '';
+    position: absolute;
+    right: -6px;
+    top: 50%;
+    transform: translateY(-50%) scale(0);
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--accent-deep);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s var(--ease-out);
+}
+
+.progress-bar:hover .progress-fill::after {
+    transform: translateY(-50%) scale(1);
 }
 
 .player-times {
@@ -675,6 +728,12 @@ section > * {
 
 .audio-button:active {
     transform: scale(0.94);
+}
+
+.audio-button.playing {
+    background-color: var(--accent-deep);
+    box-shadow: 0 4px 14px rgba(110, 42, 56, 0.3),
+                0 0 0 4px rgba(140, 59, 74, 0.12);
 }
 
 /* ── Event Section ───────────────────────────────────────── */
@@ -769,6 +828,11 @@ section > * {
     transform: translateY(-2px);
 }
 
+.btn-outline:active {
+    transform: translateY(0);
+    transition-duration: 0.05s;
+}
+
 /* ── CTA Section ─────────────────────────────────────────── */
 .cta {
     background-color: var(--bg-primary);
@@ -831,6 +895,14 @@ section > * {
     font-style: italic;
     font-size: 1.2rem;
     color: var(--accent-deep);
+    opacity: 0;
+    transform: translateY(12px);
+    transition: opacity 0.6s var(--ease-out), transform 0.6s var(--ease-out);
+}
+
+.rsvp-confirmation.is-visible {
+    opacity: 1;
+    transform: none;
 }
 
 /* ── Footer ──────────────────────────────────────────────── */
@@ -885,6 +957,11 @@ section > * {
     object-fit: contain;
     border-radius: var(--radius-sm);
     box-shadow: var(--shadow-lift);
+    transition: opacity 0.25s var(--ease-out);
+}
+
+.lightbox-image.is-swapping {
+    opacity: 0;
 }
 
 .lightbox-caption {
@@ -1052,7 +1129,8 @@ section > * {
 
     [data-reveal],
     .counter-item,
-    .photo-card {
+    .photo-card,
+    .timeline-dot {
         opacity: 1;
         transform: none;
     }

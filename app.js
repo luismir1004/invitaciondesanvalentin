@@ -20,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initLightbox();
     initEvent();
     initScrollReveal();
+    initScrollFade();
 });
 
 // ── Scroll Reveal ──────────────────────────────────────────
@@ -62,6 +63,21 @@ function setupAudio() {
     document.addEventListener('touchstart', playOnInteraction);
 }
 
+// ── Scroll Fade (hero scroll indicator) ───────────────────
+function initScrollFade() {
+    const scrollHint = document.querySelector('.hero-scroll');
+    if (!scrollHint) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    window.addEventListener('scroll', () => {
+        const opacity = Math.max(0, 1 - window.scrollY / 200);
+        scrollHint.style.opacity = opacity;
+        scrollHint.style.pointerEvents = opacity === 0 ? 'none' : '';
+    }, { passive: true });
+}
+
 // ── Button Setup ───────────────────────────────────────────
 const LUIS_WHATSAPP_NUMBER = '584121955216';
 
@@ -74,7 +90,10 @@ function setupButtons() {
             const message = encodeURIComponent('¡Acepto la invitación! Un año contigo, Luis 💕');
             window.open(`https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
 
-            if (confirmation) confirmation.hidden = false;
+            if (confirmation) {
+                confirmation.removeAttribute('hidden');
+                requestAnimationFrame(() => confirmation.classList.add('is-visible'));
+            }
             rsvpButton.disabled = true;
         });
     }

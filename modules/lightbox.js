@@ -17,6 +17,7 @@ export function initLightbox() {
     if (!images.length) return;
     let index = 0;
     let lastFocused = null;
+    let swapping = false;
 
     const focusable = () => [closeBtn, prevBtn, nextBtn].filter(Boolean);
 
@@ -46,8 +47,20 @@ export function initLightbox() {
     }
 
     function go(dir) {
+        if (swapping) return;
+        swapping = true;
         index = (index + dir + images.length) % images.length;
-        render();
+        imgEl.classList.add('is-swapping');
+
+        const finish = () => {
+            if (!swapping) return;
+            render();
+            imgEl.classList.remove('is-swapping');
+            swapping = false;
+        };
+
+        imgEl.addEventListener('transitionend', finish, { once: true });
+        setTimeout(finish, 300);
     }
 
     gallery.addEventListener('click', (e) => {
