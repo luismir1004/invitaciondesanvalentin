@@ -255,7 +255,7 @@ section > * {
     position: relative;
     background:
         linear-gradient(to bottom, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0.3) 40%, rgba(13, 11, 9, 0.7) 100%),
-        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204046_b3f0e064-2bff-44ea-8cd1-9560735acc79_min.webp') center/cover no-repeat;
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204046_b3f0e064-2bff-44ea-8cd1-9560735acc79.png') center/cover no-repeat;
 }
 
 .hero-content {
@@ -334,7 +334,7 @@ section > * {
 .message {
     background:
         linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.75) 50%, rgba(13, 11, 9, 0.9) 100%),
-        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204201_f5c3898a-b1cf-4b4d-a421-483a22fc9a9c_min.webp') center/cover no-repeat;
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204201_f5c3898a-b1cf-4b4d-a421-483a22fc9a9c.png') center/cover no-repeat;
 }
 
 .message-content {
@@ -753,7 +753,7 @@ section > * {
 .event {
     background:
         linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.7) 50%, rgba(13, 11, 9, 0.9) 100%),
-        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204330_b05a8392-7510-4492-802d-7fa44f806e6b_min.webp') center/cover no-repeat;
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204330_b05a8392-7510-4492-802d-7fa44f806e6b.png') center/cover no-repeat;
 }
 
 .event-card {
@@ -854,7 +854,7 @@ section > * {
 .cta {
     background:
         linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.6) 50%, rgba(13, 11, 9, 0.85) 100%),
-        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204250_d92d11d8-03cd-48d4-8a4f-97567a8af862_min.webp') center/cover no-repeat;
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204250_d92d11d8-03cd-48d4-8a4f-97567a8af862.png') center/cover no-repeat;
 }
 
 .cta-content {
