@@ -4,8 +4,8 @@
   "description": "Para Alejandra: un año celebrando cada día a tu lado.",
   "start_url": ".",
   "display": "standalone",
-  "background_color": "#FBF7F4",
-  "theme_color": "#FBF7F4",
+  "background_color": "#0D0B09",
+  "theme_color": "#0D0B09",
   "orientation": "portrait",
   "icons": [
     {
