@@ -760,6 +760,7 @@ section > * {
     position: absolute;
     inset: 0;
     z-index: 0;
+    max-width: none;
 }
 
 .event-video-bg video {
