@@ -3,19 +3,20 @@
    ============================================================ */
 
 :root {
-    /* Colors — deep romantic palette (wine + gold) */
-    --bg-primary: #FBF7F4;
-    --bg-alt: #F1E7E2;
-    --ink: #2A1F22;
-    --ink-soft: #6B5058;
-    --ink-muted: #A08E90;
-    --accent: #8C3B4A;
-    --accent-deep: #6E2A38;
-    --accent-soft: #E9D6D8;
-    --gold: #C9A227;
-    --gold-soft: #E7D3A0;
-    --line: #E6D9D4;
-    --on-accent: #FFFFFF;
+    /* Colors — dark romantic palette (noir + gold) */
+    --bg-primary: #0D0B09;
+    --bg-alt: #161210;
+    --ink: #F2ECE6;
+    --ink-soft: #BBA99C;
+    --ink-muted: #7A6B62;
+    --accent: #C06A7A;
+    --accent-deep: #D4AF6E;
+    --accent-soft: rgba(212, 175, 110, 0.12);
+    --gold: #D4AF6E;
+    --gold-soft: #EBD9AC;
+    --gold-label: #B8975A;
+    --line: rgba(212, 175, 110, 0.15);
+    --on-accent: #0D0B09;
 
     /* Typography */
     --font-serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
@@ -35,9 +36,9 @@
     --radius-sm: 8px;
 
     /* Elevation */
-    --shadow-sm: 0 1px 2px rgba(46, 42, 39, 0.04), 0 4px 14px rgba(46, 42, 39, 0.05);
-    --shadow-md: 0 8px 30px rgba(46, 42, 39, 0.09);
-    --shadow-lift: 0 18px 50px rgba(46, 42, 39, 0.14);
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2), 0 4px 14px rgba(0, 0, 0, 0.15);
+    --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.3);
+    --shadow-lift: 0 18px 50px rgba(0, 0, 0, 0.4);
 
     /* Motion */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
@@ -80,8 +81,8 @@ img {
 }
 
 ::selection {
-    background: var(--accent-soft);
-    color: var(--accent-deep);
+    background: rgba(212, 175, 110, 0.3);
+    color: var(--gold-soft);
 }
 
 .container {
@@ -177,7 +178,7 @@ section > * {
     top: 0;
     bottom: 0;
     width: 51%;
-    background-color: var(--bg-primary);
+    background-color: var(--bg-alt);
     transition: transform 1s var(--ease-out);
 }
 
@@ -253,8 +254,8 @@ section > * {
     min-height: 100dvh;
     position: relative;
     background:
-        radial-gradient(120% 80% at 50% -10%, var(--accent-soft) 0%, transparent 45%),
-        var(--bg-primary);
+        linear-gradient(to bottom, rgba(13, 11, 9, 0.55) 0%, rgba(13, 11, 9, 0.3) 40%, rgba(13, 11, 9, 0.7) 100%),
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204046_b3f0e064-2bff-44ea-8cd1-9560735acc79_min.webp') center/cover no-repeat;
 }
 
 .hero-content {
@@ -281,7 +282,7 @@ section > * {
 .hero-title-accent {
     font-style: italic;
     font-weight: 500;
-    color: var(--accent-deep);
+    color: var(--gold);
 }
 
 .hero .ornament {
@@ -331,7 +332,9 @@ section > * {
 
 /* ── Message Section ─────────────────────────────────────── */
 .message {
-    background-color: var(--bg-alt);
+    background:
+        linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.75) 50%, rgba(13, 11, 9, 0.9) 100%),
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204201_f5c3898a-b1cf-4b4d-a421-483a22fc9a9c_min.webp') center/cover no-repeat;
 }
 
 .message-content {
@@ -637,8 +640,8 @@ section > * {
     width: 42px;
     height: 42px;
     border-radius: 50%;
-    background-color: var(--accent-soft);
-    color: var(--accent-deep);
+    background-color: rgba(212, 175, 110, 0.1);
+    color: var(--gold);
     flex-shrink: 0;
 }
 
@@ -748,11 +751,15 @@ section > * {
 
 /* ── Event Section ───────────────────────────────────────── */
 .event {
-    background-color: var(--bg-alt);
+    background:
+        linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.7) 50%, rgba(13, 11, 9, 0.9) 100%),
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204330_b05a8392-7510-4492-802d-7fa44f806e6b_min.webp') center/cover no-repeat;
 }
 
 .event-card {
-    background-color: var(--bg-primary);
+    background-color: rgba(13, 11, 9, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid var(--line);
     border-radius: var(--radius);
     box-shadow: var(--shadow-sm);
@@ -783,8 +790,8 @@ section > * {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: var(--accent-soft);
-    color: var(--accent-deep);
+    background-color: rgba(212, 175, 110, 0.1);
+    color: var(--gold);
     flex-shrink: 0;
 }
 
@@ -820,8 +827,8 @@ section > * {
     min-width: 150px;
     padding: 13px 20px;
     background: transparent;
-    color: var(--accent-deep);
-    border: 1px solid var(--accent);
+    color: var(--gold);
+    border: 1px solid var(--gold-label);
     border-radius: 100px;
     font-family: var(--font-sans);
     font-size: 0.72rem;
@@ -833,7 +840,7 @@ section > * {
 }
 
 .btn-outline:hover {
-    background-color: var(--accent);
+    background-color: var(--gold);
     color: var(--on-accent);
     transform: translateY(-2px);
 }
@@ -845,7 +852,9 @@ section > * {
 
 /* ── CTA Section ─────────────────────────────────────────── */
 .cta {
-    background-color: var(--bg-primary);
+    background:
+        linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.6) 50%, rgba(13, 11, 9, 0.85) 100%),
+        url('https://d8j0ntlcm91z4.cloudfront.net/user_3GYRdOAtqRwdBUQe7y10zcrNG1D/hf_20260715_204250_d92d11d8-03cd-48d4-8a4f-97567a8af862_min.webp') center/cover no-repeat;
 }
 
 .cta-content {
@@ -868,7 +877,7 @@ section > * {
 
 .cta-button {
     padding: 15px 46px;
-    background-color: var(--accent);
+    background-color: var(--gold);
     color: var(--on-accent);
     border: none;
     border-radius: 100px;
@@ -878,14 +887,14 @@ section > * {
     letter-spacing: 0.16em;
     text-transform: uppercase;
     cursor: pointer;
-    box-shadow: 0 6px 20px rgba(110, 42, 56, 0.28);
+    box-shadow: 0 6px 20px rgba(212, 175, 110, 0.25);
     transition: transform var(--transition), background-color var(--transition), box-shadow var(--transition);
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
-    background-color: var(--accent-deep);
-    box-shadow: 0 10px 28px rgba(110, 42, 56, 0.36);
+    background-color: var(--gold-soft);
+    box-shadow: 0 10px 28px rgba(212, 175, 110, 0.35);
 }
 
 .cta-button:active {

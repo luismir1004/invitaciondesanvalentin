@@ -10,8 +10,8 @@ export const EVENT = {
     title: 'Nuestro Aniversario — Un Año Contigo',
     start: { year: 2026, month: 7, day: 20, hour: 19, minute: 0 }, // 20 jul 2026, 7:00 PM
     end: { year: 2026, month: 7, day: 20, hour: 23, minute: 0 },   // 20 jul 2026, 11:00 PM
-    venue: 'MOOKAH',
-    address: 'Torre Torca, Las Mercedes, Caracas',
+    venue: 'Bonsai Sushi',
+    address: 'C.C. Sambil, Chacao, Caracas',
     description: 'Celebremos juntos nuestro primer año. Con amor, Luis y Alejandra.'
 };
 
