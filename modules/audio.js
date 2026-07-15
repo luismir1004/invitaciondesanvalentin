@@ -13,7 +13,7 @@ const PAUSE_ICON = '<svg viewBox="0 0 24 24" fill="currentColor" width="22" heig
 
 function initAudioSystem() {
     if (audio) return;
-    audio = new Audio('/audio/domingo_familiar.mp3');
+    audio = new Audio('./audio/domingo_familiar.mp3');
     audio.loop = true;
     audio.volume = volume;
     audio.preload = 'metadata';
@@ -118,4 +118,16 @@ export function togglePlay() {
         audio.pause();
     }
     updateButtonVisual();
+}
+
+/**
+ * Inicializa el botón de audio toggle.
+ */
+export function initAudioToggle() {
+    const btn = document.getElementById('audio-toggle');
+    if (btn) {
+        btn.addEventListener('click', togglePlay);
+        // Mantener exposición global para compatibilidad
+        window.togglePlay = togglePlay;
+    }
 }

@@ -2,7 +2,7 @@
    APP — Editorial Minimalista (Aniversario)
    ============================================================ */
 
-import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI } from './modules/audio.js';
+import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI, initAudioToggle } from './modules/audio.js';
 import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initEvent } from './modules/event.js';
@@ -10,9 +10,9 @@ import { initIntro } from './modules/intro.js';
 
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Contador desde el inicio de la relación
-    const relationshipStart = new Date('2025-07-20T00:00:00');
-    initCounter(relationshipStart);
+    // Contador desde el inicio de la relación (editable en <html data-start-date>)
+    const startDateStr = document.documentElement.dataset.startDate || '2025-07-20T00:00:00';
+    initCounter(new Date(startDateStr));
 
     initIntro();
     setupAudio();
@@ -48,9 +48,8 @@ function initScrollReveal() {
 
 // ── Audio Setup ────────────────────────────────────────────
 function setupAudio() {
-    // Expose play/pause toggle for the button
-    window.togglePlay = togglePlay;
     initPlayerUI();
+    initAudioToggle();
     updateButtonVisual();
 
     // Play on first user interaction (mobile autoplay unlock)

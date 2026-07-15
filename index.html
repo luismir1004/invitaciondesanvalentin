@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-start-date="2025-07-20T00:00:00">
 
 <head>
     <meta charset="UTF-8">
@@ -254,7 +254,7 @@
                         <p class="song-title">Domingo Familiar</p>
                         <p class="song-artist">Nuestra canción</p>
                     </div>
-                    <button id="audio-toggle" type="button" class="audio-button" aria-label="Reproducir música" onclick="window.togglePlay?.()">
+                    <button id="audio-toggle" type="button" class="audio-button" aria-label="Reproducir música">
                         <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
                             <path d="M8 5v14l11-7z"/>
                         </svg>
@@ -359,6 +359,12 @@
 
     <!-- Scripts -->
     <script type="module" src="app.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js')
+                .catch(e => console.log('Service Worker registration failed:', e));
+        }
+    </script>
 </body>
 
 </html>
