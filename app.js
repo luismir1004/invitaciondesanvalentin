@@ -126,11 +126,15 @@ function initScrollFade() {
 
 // ── Lazy Video Loading ────────────────────────────────────
 function initLazyVideos() {
-    const videos = document.querySelectorAll('video[data-lazy-src]');
+    const videos = Array.from(document.querySelectorAll('video[data-lazy-src]'));
     if (!videos.length) return;
 
+    const loadSrc = (v) => {
+        if (!v.src) v.src = v.dataset.lazySrc;
+    };
+
     if (!('IntersectionObserver' in window)) {
-        videos.forEach((v) => { v.src = v.dataset.lazySrc; v.play().catch(() => {}); });
+        videos.forEach((v) => { loadSrc(v); v.play().catch(() => {}); });
         return;
     }
 
@@ -138,14 +142,33 @@ function initLazyVideos() {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 const video = entry.target;
-                video.src = video.dataset.lazySrc;
+                loadSrc(video);
                 video.play().catch(() => {});
                 obs.unobserve(video);
             }
         });
-    }, { rootMargin: '200px 0px' });
+    }, { rootMargin: '400px 0px' });
 
     videos.forEach((v) => observer.observe(v));
+
+    // Videos marcados como "eager" (el del evento, servido desde un CDN
+    // externo lento y sin poster): empiezan a descargar apenas la página
+    // queda ociosa, sin esperar al scroll, para que ya estén buffered al
+    // llegar a la sección. El observer se encarga de reproducirlos al verse.
+    const startEager = () => {
+        videos.forEach((v) => {
+            if (v.hasAttribute('data-lazy-eager') && !v.src) {
+                v.preload = 'auto';
+                v.src = v.dataset.lazySrc;
+                v.load();
+            }
+        });
+    };
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(startEager, { timeout: 3000 });
+    } else {
+        setTimeout(startEager, 1500);
+    }
 }
 
 // ── Celebración (lluvia de corazones al aceptar) ──────────
