@@ -5,7 +5,7 @@
    Los bundles con hash (assets/index-*.js/.css) se cachean al vuelo.
    ============================================================ */
 
-const CACHE_NAME = 'un-ano-contigo-v7';
+const CACHE_NAME = 'un-ano-contigo-v8';
 
 // Solo archivos con nombre ESTABLE (no los bundles con hash de Vite).
 // Incluye fotos, posters y fuentes para que la experiencia offline
@@ -25,7 +25,7 @@ const STATIC_ASSETS = [
     './fonts/inter-latin-500-normal.woff2',
     './fonts/inter-latin-600-normal.woff2',
     // Posters de los videos
-    './assets/hero-poster.jpg',
+    './assets/hero-poster-2.jpg',
     './assets/message-poster.jpg',
     './assets/cta-poster.jpg',
     // Galería (webp, lo que piden los navegadores modernos)
