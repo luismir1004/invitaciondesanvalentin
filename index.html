@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Un Año Contigo ❤️</title>
     <meta name="description" content="Para Alejandra: un año celebrando cada día a tu lado.">
+    <!-- Invitación privada: fuera de los buscadores -->
+    <meta name="robots" content="noindex, nofollow">
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
@@ -29,11 +31,13 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="apple-touch-icon" href="/assets/icon-192.png">
     <link rel="manifest" href="/manifest.json">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Un Año Contigo">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Fonts (self-hosted): precarga de las 2 críticas para el hero -->
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/cormorant-garamond-latin-500-normal.woff2" crossorigin>
+    <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-500-normal.woff2" crossorigin>
 
     <!-- Styles -->
     <link rel="stylesheet" href="theme.css">
@@ -170,6 +174,7 @@
                     <span class="counter-unit">segundos</span>
                 </div>
             </div>
+            <p class="event-countdown" id="event-countdown" data-reveal hidden></p>
         </section>
 
         <!-- History / Timeline Section -->

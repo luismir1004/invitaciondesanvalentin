@@ -5,7 +5,7 @@
 import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI, initAudioToggle } from './modules/audio.js';
 import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
-import { initEvent } from './modules/event.js';
+import { initEvent, EVENT } from './modules/event.js';
 import { initIntro } from './modules/intro.js';
 
 // ── Initialization ─────────────────────────────────────────
@@ -22,7 +22,39 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initScrollFade();
     initLazyVideos();
+    initEventCountdown();
 });
+
+// ── Cuenta regresiva a la celebración ─────────────────────
+function initEventCountdown() {
+    const el = document.getElementById('event-countdown');
+    if (!el) return;
+
+    const s = EVENT.start;
+
+    function update() {
+        const now = new Date();
+        // Días de calendario hasta la cena (a medianoche del día del evento)
+        const startOfEventDay = new Date(s.year, s.month - 1, s.day);
+        const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const days = Math.round((startOfEventDay - startOfToday) / 86400000);
+
+        if (days > 1) {
+            el.textContent = `Faltan ${days} días para nuestra celebración ✨`;
+        } else if (days === 1) {
+            el.textContent = '¡Mañana es nuestra celebración! ✨';
+        } else if (days === 0) {
+            el.textContent = '¡Hoy es el día! Nos vemos a las 7:00 PM 🥂';
+        } else {
+            el.textContent = 'Ya celebramos nuestro primer año… y vamos por muchos más 💛';
+        }
+        el.hidden = false;
+    }
+
+    update();
+    // Refresca al cruzar medianoche si deja la página abierta
+    setInterval(update, 60000);
+}
 
 // ── Scroll Reveal ──────────────────────────────────────────
 function initScrollReveal() {
@@ -116,6 +148,41 @@ function initLazyVideos() {
     videos.forEach((v) => observer.observe(v));
 }
 
+// ── Celebración (lluvia de corazones al aceptar) ──────────
+function celebrate(origin) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) return;
+
+    const symbols = ['❤', '💛', '✨', '❤', '✨'];
+    const rect = origin.getBoundingClientRect();
+    const originX = rect.left + rect.width / 2;
+    const originY = rect.top + rect.height / 2;
+
+    for (let i = 0; i < 26; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'celebrate-heart';
+        heart.textContent = symbols[i % symbols.length];
+        heart.setAttribute('aria-hidden', 'true');
+
+        const spreadX = (Math.random() - 0.5) * 320;     // dispersión horizontal
+        const rise = 260 + Math.random() * 320;          // altura del vuelo
+        const size = 0.8 + Math.random() * 1.3;
+        const duration = 1.6 + Math.random() * 1.6;
+        const delay = Math.random() * 0.55;
+
+        heart.style.left = `${originX}px`;
+        heart.style.top = `${originY}px`;
+        heart.style.fontSize = `${size}rem`;
+        heart.style.setProperty('--spread-x', `${spreadX}px`);
+        heart.style.setProperty('--rise', `${-rise}px`);
+        heart.style.animationDuration = `${duration}s`;
+        heart.style.animationDelay = `${delay}s`;
+
+        document.body.appendChild(heart);
+        heart.addEventListener('animationend', () => heart.remove());
+    }
+}
+
 // ── Button Setup ───────────────────────────────────────────
 const LUIS_WHATSAPP_NUMBER = '584121955216';
 
@@ -144,6 +211,9 @@ function setupButtons() {
                 requestAnimationFrame(() => confirmation.classList.add('is-visible'));
             }
             rsvpButton.disabled = true;
+            rsvpButton.classList.add('is-accepted');
+            rsvpButton.textContent = '✓ Aceptada 💛';
+            celebrate(rsvpButton);
         });
     }
 }

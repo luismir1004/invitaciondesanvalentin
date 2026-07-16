@@ -12,6 +12,7 @@ export const EVENT = {
     end: { year: 2026, month: 7, day: 20, hour: 23, minute: 0 },   // 20 jul 2026, 11:00 PM
     venue: 'Bonsai Sushi',
     address: 'C.C. Sambil, Chacao, Caracas',
+    coords: { lat: 10.489442, lng: -66.855118 }, // Centro Sambil Caracas
     description: 'Celebremos juntos nuestro primer año. Con amor, Luis y Alejandra.'
 };
 
@@ -65,6 +66,10 @@ function foldLine(line) {
 }
 
 function buildMapUrl() {
+    // Pin exacto por coordenadas (más fiable que la búsqueda por texto)
+    if (EVENT.coords) {
+        return `https://www.google.com/maps/search/?api=1&query=${EVENT.coords.lat},${EVENT.coords.lng}`;
+    }
     const query = encodeURIComponent(`${EVENT.venue}, ${EVENT.address}`);
     return `https://www.google.com/maps/search/?api=1&query=${query}`;
 }

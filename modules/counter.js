@@ -48,7 +48,26 @@ export function initCounter(startDate) {
     setVal(secondsEl, String(seconds).padStart(2, '0'));
   }
 
-  // Actualización inmediata + cada segundo
-  update();
-  setInterval(update, 1000);
+  // Actualización inmediata + cada segundo.
+  // Se pausa cuando la pestaña está oculta (ahorra batería) y se
+  // pone al día al instante cuando vuelve a ser visible.
+  let timer = null;
+
+  function start() {
+    if (timer) return;
+    update();
+    timer = setInterval(update, 1000);
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stop();
+    else start();
+  });
+
+  start();
 }

@@ -2,6 +2,79 @@
    THEME — Editorial Minimalista (Aniversario)
    ============================================================ */
 
+/* ── Fuentes self-hosted (sin CDN: más rápido y funciona offline) ── */
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/cormorant-garamond-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/cormorant-garamond-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/cormorant-garamond-latin-600-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/cormorant-garamond-latin-400-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Cormorant Garamond';
+    font-style: italic;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/cormorant-garamond-latin-500-italic.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 300;
+    font-display: swap;
+    src: url('/fonts/inter-latin-300-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/fonts/inter-latin-400-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/fonts/inter-latin-500-normal.woff2') format('woff2');
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/fonts/inter-latin-600-normal.woff2') format('woff2');
+}
+
 :root {
     /* Colors — dark romantic palette (noir + gold) */
     --bg-primary: #0D0B09;
@@ -556,6 +629,15 @@ section > * {
     animation: counterTick 0.35s var(--ease-out);
 }
 
+.event-countdown {
+    text-align: center;
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: clamp(1.15rem, 3.4vw, 1.4rem);
+    color: var(--accent-deep);
+    margin-top: var(--space-lg);
+}
+
 /* ── History / Timeline ──────────────────────────────────── */
 .history {
     background-color: var(--bg-primary);
@@ -1000,6 +1082,40 @@ section > * {
     cursor: default;
     transform: none;
     box-shadow: none;
+}
+
+/* Estado aceptado: dorado pleno, nada de gris apagado */
+.cta-button.is-accepted:disabled {
+    opacity: 1;
+    background-color: var(--gold-soft);
+    color: var(--on-accent);
+    box-shadow: 0 6px 24px rgba(212, 175, 110, 0.35);
+}
+
+/* ── Celebración: corazones que vuelan al aceptar ────────── */
+.celebrate-heart {
+    position: fixed;
+    z-index: 1500;
+    pointer-events: none;
+    color: var(--gold);
+    line-height: 1;
+    opacity: 0;
+    animation: heartFly 2s var(--ease-out) forwards;
+    text-shadow: 0 0 12px rgba(212, 175, 110, 0.5);
+}
+
+@keyframes heartFly {
+    0% {
+        transform: translate(-50%, -50%) scale(0.4);
+        opacity: 0;
+    }
+    12% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(calc(-50% + var(--spread-x, 0px)), calc(-50% + var(--rise, -300px))) scale(1.1) rotate(12deg);
+        opacity: 0;
+    }
 }
 
 .rsvp-confirmation {
