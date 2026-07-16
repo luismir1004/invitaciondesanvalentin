@@ -281,13 +281,55 @@ section > * {
     transform: translateX(100%);
 }
 
-/* Resplandor central, como luz de vela */
+/* Resplandor central, como luz de vela (respira lentamente) */
 .intro-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 62% 48% at 50% 46%, rgba(212, 175, 110, 0.12), transparent 70%);
+    background: radial-gradient(ellipse 62% 48% at 50% 46%, rgba(212, 175, 110, 0.13), transparent 70%);
+    animation: candleBreath 6s ease-in-out infinite;
     transition: opacity 0.5s var(--ease-out);
 }
+
+@keyframes candleBreath {
+    0%, 100% { opacity: 0.85; }
+    50%      { opacity: 1.15; }
+}
+
+/* Grano de película, textura cinematográfica sobre todo el intro */
+.intro::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* Marco de tarjeta impresa: doble filete dorado con gemas en las esquinas */
+.intro-frame {
+    position: absolute;
+    inset: clamp(14px, 3vw, 26px);
+    border: 1px solid rgba(212, 175, 110, 0.22);
+    outline: 1px solid rgba(212, 175, 110, 0.08);
+    outline-offset: 4px;
+    pointer-events: none;
+    transition: opacity 0.5s var(--ease-out);
+}
+
+.frame-gem {
+    position: absolute;
+    width: 5px;
+    height: 5px;
+    background: var(--gold);
+    transform: rotate(45deg);
+    box-shadow: 0 0 8px rgba(212, 175, 110, 0.55);
+}
+
+.frame-gem:nth-child(1) { top: -3px; left: -3px; }
+.frame-gem:nth-child(2) { top: -3px; right: -3px; }
+.frame-gem:nth-child(3) { bottom: -3px; left: -3px; }
+.frame-gem:nth-child(4) { bottom: -3px; right: -3px; }
 
 /* Destellos dorados que titilan */
 .intro-fx {
@@ -297,7 +339,8 @@ section > * {
 }
 
 .intro.is-open .intro-glow,
-.intro.is-open .intro-fx {
+.intro.is-open .intro-fx,
+.intro.is-open .intro-frame {
     opacity: 0;
 }
 
@@ -345,24 +388,79 @@ section > * {
     margin-bottom: var(--space-md);
 }
 
+/* ── Medallón / sello del monograma ──────────────────────── */
+.intro-crest {
+    position: relative;
+    width: clamp(210px, 56vw, 280px);
+    aspect-ratio: 1;
+    margin: var(--space-sm) auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 110, 0.30);
+    background: radial-gradient(circle at 50% 42%, rgba(212, 175, 110, 0.07), transparent 68%);
+}
+
+/* Anillo interior fino, efecto grabado */
+.intro-crest::before {
+    content: '';
+    position: absolute;
+    inset: 7px;
+    border-radius: 50%;
+    border: 1px solid rgba(212, 175, 110, 0.13);
+}
+
+/* Destello de luz que recorre el anillo, como una joya girando */
+.intro-crest::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    background: conic-gradient(transparent 0deg, transparent 300deg, rgba(235, 217, 172, 0.85) 330deg, transparent 360deg);
+    -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 1.5px));
+    mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 1.5px));
+    animation: crestGlint 7s linear infinite;
+}
+
+@keyframes crestGlint {
+    to { transform: rotate(360deg); }
+}
+
+.crest-heart {
+    color: var(--gold);
+    font-size: 0.8rem;
+    line-height: 1;
+    filter: drop-shadow(0 0 6px rgba(212, 175, 110, 0.5));
+}
+
 .intro-monogram {
     font-family: var(--font-serif);
-    font-size: clamp(4rem, 16vw, 6.5rem);
+    font-size: clamp(3.4rem, 13vw, 4.6rem);
     font-weight: 500;
     line-height: 1;
     color: var(--ink);
     letter-spacing: 0.04em;
 }
 
-/* Degradado dorado sobre las letras (con fallback al color plano) */
+/* Degradado dorado con brillo que se desplaza (fallback: color plano) */
 @supports (-webkit-background-clip: text) or (background-clip: text) {
     .intro-monogram {
-        background: linear-gradient(150deg, #F5EFE7 10%, #EBD9AC 48%, #C9A05E 95%);
+        background: linear-gradient(110deg, #F5EFE7 20%, #EBD9AC 40%, #C9A05E 55%, #F5EFE7 80%);
+        background-size: 220% 100%;
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
         filter: drop-shadow(0 3px 22px rgba(212, 175, 110, 0.28));
+        animation: monogramSheen 7s ease-in-out infinite alternate;
     }
+}
+
+@keyframes monogramSheen {
+    from { background-position: 0% 50%; }
+    to   { background-position: 100% 50%; }
 }
 
 .intro-amp {
@@ -412,11 +510,10 @@ section > * {
 }
 
 .intro-content > *:nth-child(1) { animation-delay: 0.15s; }
-.intro-content > *:nth-child(2) { animation-delay: 0.35s; }
-.intro-content > *:nth-child(3) { animation-delay: 0.6s; }
-.intro-content > *:nth-child(4) { animation-delay: 0.8s; }
-.intro-content > *:nth-child(5) { animation-delay: 0.95s; }
-.intro-content > *:nth-child(6) { animation-delay: 1.15s; }
+.intro-content > *:nth-child(2) { animation-delay: 0.4s; }
+.intro-content > *:nth-child(3) { animation-delay: 0.75s; }
+.intro-content > *:nth-child(4) { animation-delay: 0.9s; }
+.intro-content > *:nth-child(5) { animation-delay: 1.1s; }
 
 @keyframes introRise {
     from { opacity: 0; transform: translateY(16px); }
@@ -1520,5 +1617,9 @@ section > * {
     .intro-spark {
         animation: none;
         opacity: 0;
+    }
+
+    .intro-crest::after {
+        display: none;
     }
 }
