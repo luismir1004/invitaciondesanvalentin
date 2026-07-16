@@ -68,17 +68,47 @@ export function initPlayerUI() {
             fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
         }
         if (curEl) curEl.textContent = fmt(audio.currentTime);
+        if (track && audio.duration) {
+            track.setAttribute('aria-valuenow', String(Math.round(audio.currentTime)));
+            track.setAttribute('aria-valuetext', `${fmt(audio.currentTime)} de ${fmt(audio.duration)}`);
+        }
     });
 
     audio.addEventListener('play', updateButtonVisual);
     audio.addEventListener('pause', updateButtonVisual);
 
     if (track) {
+        // Slider accesible: operable con teclado (flechas ±5s, Home/End)
+        track.setAttribute('role', 'slider');
+        track.setAttribute('tabindex', '0');
+        track.setAttribute('aria-valuemin', '0');
+        track.setAttribute('aria-valuenow', '0');
+        audio.addEventListener('loadedmetadata', () => {
+            track.setAttribute('aria-valuemax', String(Math.round(audio.duration)));
+        });
+
         track.addEventListener('click', (e) => {
             if (!audio.duration) return;
             const rect = track.getBoundingClientRect();
             const ratio = Math.min(1, Math.max(0, (e.clientX - rect.left) / rect.width));
             audio.currentTime = ratio * audio.duration;
+        });
+
+        track.addEventListener('keydown', (e) => {
+            if (!audio.duration) return;
+            if (e.key === 'ArrowRight' || e.key === 'ArrowUp') {
+                e.preventDefault();
+                audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
+                e.preventDefault();
+                audio.currentTime = Math.max(0, audio.currentTime - 5);
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                audio.currentTime = 0;
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                audio.currentTime = audio.duration;
+            }
         });
     }
 

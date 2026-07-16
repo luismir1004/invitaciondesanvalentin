@@ -26,13 +26,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ── Scroll Reveal ──────────────────────────────────────────
 function initScrollReveal() {
-    const elements = document.querySelectorAll('[data-reveal]');
+    const elements = Array.from(document.querySelectorAll('[data-reveal]'));
     if (!elements.length) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (reduceMotion || !('IntersectionObserver' in window)) {
         elements.forEach((el) => el.classList.add('is-visible'));
         return;
+    }
+
+    // El hero espera a que se abra el telón: así Ale sí ve la
+    // animación de entrada (si no, ocurre oculta detrás del intro).
+    const intro = document.getElementById('intro');
+    const heroElements = elements.filter((el) => el.closest('.hero'));
+    const scrollElements = elements.filter((el) => !el.closest('.hero'));
+
+    if (intro && !intro.hidden && heroElements.length) {
+        document.addEventListener('intro:open', () => {
+            heroElements.forEach((el) => el.classList.add('is-visible'));
+        }, { once: true });
+    } else {
+        heroElements.forEach((el) => el.classList.add('is-visible'));
     }
 
     const observer = new IntersectionObserver((entries, obs) => {
@@ -44,7 +58,7 @@ function initScrollReveal() {
         });
     }, { threshold: 0, rootMargin: '0px 0px -10% 0px' });
 
-    elements.forEach((el) => observer.observe(el));
+    scrollElements.forEach((el) => observer.observe(el));
 }
 
 // ── Audio Setup ────────────────────────────────────────────
@@ -117,7 +131,13 @@ function setupButtons() {
                 'Nos vemos el *20 de julio* en Bonsai Sushi. ✨\n\n' +
                 'Te amo, Luis. Un año contigo y apenas comienza. 💕'
             );
-            window.open(`https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
+            const url = `https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`;
+            const win = window.open(url, '_blank', 'noopener');
+            if (!win) {
+                // Popup bloqueado: navegar directo para no perder el mensaje
+                window.location.href = url;
+                return;
+            }
 
             if (confirmation) {
                 confirmation.removeAttribute('hidden');

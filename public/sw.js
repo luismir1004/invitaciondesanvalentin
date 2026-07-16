@@ -5,7 +5,7 @@
    Los bundles con hash (assets/index-*.js/.css) se cachean al vuelo.
    ============================================================ */
 
-const CACHE_NAME = 'un-ano-contigo-v5';
+const CACHE_NAME = 'un-ano-contigo-v6';
 
 // Solo archivos con nombre ESTABLE (no los bundles con hash de Vite).
 const STATIC_ASSETS = [
@@ -35,10 +35,28 @@ self.addEventListener('activate', (e) => {
     self.clients.claim();
 });
 
-// Fetch: cache-first, con caché en tiempo de ejecución para lo que falte
-// (incluye los bundles con hash de Vite, que se guardan en el primer load).
+// Fetch:
+// - Navegaciones (HTML): network-first, así cada deploy se ve al instante;
+//   la caché solo entra como respaldo sin conexión.
+// - Assets: cache-first con caché en tiempo de ejecución
+//   (incluye los bundles con hash de Vite, que se guardan en el primer load).
 self.addEventListener('fetch', (e) => {
     if (e.request.method !== 'GET') return;
+
+    if (e.request.mode === 'navigate') {
+        e.respondWith(
+            fetch(e.request).then(response => {
+                if (response && response.status === 200) {
+                    const copy = response.clone();
+                    caches.open(CACHE_NAME).then(cache => cache.put('./index.html', copy));
+                }
+                return response;
+            }).catch(() =>
+                caches.match(e.request).then(cached => cached || caches.match('./index.html'))
+            )
+        );
+        return;
+    }
 
     e.respondWith(
         caches.match(e.request).then(cached => {
@@ -51,9 +69,6 @@ self.addEventListener('fetch', (e) => {
                 const copy = response.clone();
                 caches.open(CACHE_NAME).then(cache => cache.put(e.request, copy));
                 return response;
-            }).catch(() => {
-                // Sin red: para navegaciones, servir el shell
-                if (e.request.mode === 'navigate') return caches.match('./index.html');
             });
         })
     );

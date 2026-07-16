@@ -248,8 +248,8 @@ section > * {
 }
 
 @keyframes gentlePulse {
-    0%, 100% { box-shadow: 0 6px 20px rgba(110, 42, 56, 0.28); }
-    50%      { box-shadow: 0 6px 28px rgba(110, 42, 56, 0.50), 0 0 0 6px rgba(140, 59, 74, 0.10); }
+    0%, 100% { box-shadow: 0 6px 20px rgba(212, 175, 110, 0.22); }
+    50%      { box-shadow: 0 6px 28px rgba(212, 175, 110, 0.40), 0 0 0 6px rgba(212, 175, 110, 0.10); }
 }
 
 .intro-button {
@@ -335,6 +335,12 @@ section > * {
 .hero-eyebrow {
     margin-bottom: var(--space-md);
     text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+}
+
+/* El intro enfoca el título al cerrarse (a11y): sin anillo visible */
+.hero-title:focus,
+.hero-title:focus-visible {
+    outline: none;
 }
 
 .hero-title {
@@ -670,10 +676,6 @@ section > * {
     transform: scale(1.06);
 }
 
-.photo-card img {
-    cursor: pointer;
-}
-
 /* Foco por teclado: offset negativo para que no lo recorte overflow:hidden */
 .photo-card img:focus-visible {
     outline: 2px solid var(--accent);
@@ -810,7 +812,7 @@ section > * {
     justify-content: center;
     cursor: pointer;
     flex-shrink: 0;
-    box-shadow: 0 4px 14px rgba(110, 42, 56, 0.3);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
     transition: transform var(--transition), background-color var(--transition);
 }
 
@@ -825,8 +827,8 @@ section > * {
 
 .audio-button.playing {
     background-color: var(--accent-deep);
-    box-shadow: 0 4px 14px rgba(110, 42, 56, 0.3),
-                0 0 0 4px rgba(140, 59, 74, 0.12);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35),
+                0 0 0 4px rgba(212, 175, 110, 0.15);
 }
 
 /* ── Event Section ───────────────────────────────────────── */

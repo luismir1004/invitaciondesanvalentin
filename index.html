@@ -9,9 +9,12 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://invitaciondesanvalentin.vercel.app/">
+    <meta property="og:site_name" content="Un Año Contigo">
+    <meta property="og:locale" content="es_VE">
     <meta property="og:title" content="Un Año Contigo — Para Alejandra ❤️">
     <meta property="og:description" content="Un año celebrando cada día a tu lado. Con amor, Luis.">
-    <meta property="og:image" content="/assets/og-preview.jpg">
+    <meta property="og:image" content="https://invitaciondesanvalentin.vercel.app/assets/og-preview.jpg">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="theme-color" content="#0D0B09">
@@ -20,7 +23,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Un Año Contigo — Para Alejandra ❤️">
     <meta name="twitter:description" content="Un año celebrando cada día a tu lado. Con amor, Luis.">
-    <meta name="twitter:image" content="/assets/og-preview.jpg">
+    <meta name="twitter:image" content="https://invitaciondesanvalentin.vercel.app/assets/og-preview.jpg">
 
     <!-- PWA / Icons -->
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
@@ -34,6 +37,15 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="theme.css">
+
+    <!-- Sin JS: ocultar el telón y mostrar el contenido -->
+    <noscript>
+        <style>
+            #intro { display: none; }
+            [data-reveal], .counter-item, .photo-card { opacity: 1 !important; transform: none !important; }
+            .timeline-dot { transform: scale(1) !important; }
+        </style>
+    </noscript>
 </head>
 
 <body>
@@ -59,6 +71,7 @@
         <section class="hero" id="hero">
             <div class="video-bg" aria-hidden="true">
                 <video autoplay muted loop playsinline preload="auto"
+                       poster="./assets/hero-poster.jpg"
                        src="./assets/hero-video.mp4">
                 </video>
             </div>
@@ -85,6 +98,7 @@
         <section class="message" id="message">
             <div class="video-bg" aria-hidden="true">
                 <video muted loop playsinline preload="none"
+                       poster="./assets/message-poster.jpg"
                        data-lazy-src="./assets/message-video.mp4">
                 </video>
             </div>
@@ -340,6 +354,7 @@
         <section class="cta" id="cta">
             <div class="video-bg" aria-hidden="true">
                 <video muted loop playsinline preload="none"
+                       poster="./assets/cta-poster.jpg"
                        data-lazy-src="./assets/cta-video.mp4">
                 </video>
             </div>

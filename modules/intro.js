@@ -28,6 +28,9 @@ export function initIntro() {
         // El gesto de apertura desbloquea/inicia la música
         playAmbientMelody();
 
+        // Avisa al resto de la página (el hero arranca su animación aquí)
+        document.dispatchEvent(new CustomEvent('intro:open'));
+
         if (reduceMotion) {
             finish();
             return;
