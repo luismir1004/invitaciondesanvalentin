@@ -111,7 +111,12 @@ function setupButtons() {
 
     if (rsvpButton) {
         rsvpButton.addEventListener('click', () => {
-            const message = encodeURIComponent('¡Acepto la invitación! Un año contigo, Luis 💕');
+            const message = encodeURIComponent(
+                '💛 *¡Sí, acepto!* 💛\n\n' +
+                'Mi amor, acepto tu invitación para celebrar nuestro primer año juntos. 🥂\n\n' +
+                'Nos vemos el *20 de julio* en Bonsai Sushi. ✨\n\n' +
+                'Te amo, Luis. Un año contigo y apenas comienza. 💕'
+            );
             window.open(`https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`, '_blank', 'noopener');
 
             if (confirmation) {
