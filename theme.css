@@ -265,17 +265,29 @@ section > * {
     background-color: var(--bg-primary);
 }
 
-.hero-video-bg {
+/* ── Video Background (reutilizable) ───────────────────── */
+.video-bg {
     position: absolute;
     inset: 0;
     z-index: 0;
     max-width: none;
 }
 
-.hero-video-bg video {
+.video-bg video {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    background-color: var(--bg-primary);
+}
+
+.video-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+/* Hero: overlay + vignette + Ken Burns */
+.hero .video-bg video {
     animation: heroZoom 25s ease-in-out infinite alternate;
 }
 
@@ -284,13 +296,34 @@ section > * {
     100% { transform: scale(1.08); }
 }
 
-.hero-video-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
+.hero .video-bg::after {
     background:
         linear-gradient(to bottom, rgba(13, 11, 9, 0.6) 0%, rgba(13, 11, 9, 0.4) 40%, rgba(13, 11, 9, 0.8) 100%),
         radial-gradient(ellipse at center, transparent 30%, rgba(13, 11, 9, 0.5) 100%);
+}
+
+/* Message: overlay denso + zoom sutil */
+.message .video-bg video {
+    animation: messageZoom 30s ease-in-out infinite alternate;
+}
+
+@keyframes messageZoom {
+    0%   { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.message .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.72) 50%, rgba(13, 11, 9, 0.9) 100%);
+}
+
+/* Event: overlay fuerte para tarjeta glass */
+.event .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.65) 50%, rgba(13, 11, 9, 0.9) 100%);
+}
+
+/* CTA: overlay medio */
+.cta .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.55) 50%, rgba(13, 11, 9, 0.85) 100%);
 }
 
 .hero-content {
@@ -377,26 +410,6 @@ section > * {
     position: relative;
     overflow: hidden;
     background-color: var(--bg-primary);
-}
-
-.message-video-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    max-width: none;
-}
-
-.message-video-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.message-video-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.72) 50%, rgba(13, 11, 9, 0.9) 100%);
 }
 
 .message > .message-content {
@@ -823,26 +836,6 @@ section > * {
     background-color: var(--bg-primary);
 }
 
-.event-video-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    max-width: none;
-}
-
-.event-video-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.event-video-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.65) 50%, rgba(13, 11, 9, 0.9) 100%);
-}
-
 .event > .section-head,
 .event > .event-card {
     position: relative;
@@ -948,26 +941,6 @@ section > * {
     position: relative;
     overflow: hidden;
     background-color: var(--bg-primary);
-}
-
-.cta-video-bg {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    max-width: none;
-}
-
-.cta-video-bg video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.cta-video-bg::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.55) 50%, rgba(13, 11, 9, 0.85) 100%);
 }
 
 .cta > .ornament,

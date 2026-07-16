@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initEvent();
     initScrollReveal();
     initScrollFade();
+    initLazyVideos();
 });
 
 // ── Scroll Reveal ──────────────────────────────────────────
@@ -75,6 +76,30 @@ function initScrollFade() {
         scrollHint.style.opacity = opacity;
         scrollHint.style.pointerEvents = opacity === 0 ? 'none' : '';
     }, { passive: true });
+}
+
+// ── Lazy Video Loading ────────────────────────────────────
+function initLazyVideos() {
+    const videos = document.querySelectorAll('video[data-lazy-src]');
+    if (!videos.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+        videos.forEach((v) => { v.src = v.dataset.lazySrc; v.play().catch(() => {}); });
+        return;
+    }
+
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                const video = entry.target;
+                video.src = video.dataset.lazySrc;
+                video.play().catch(() => {});
+                obs.unobserve(video);
+            }
+        });
+    }, { rootMargin: '200px 0px' });
+
+    videos.forEach((v) => observer.observe(v));
 }
 
 // ── Button Setup ───────────────────────────────────────────
