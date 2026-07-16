@@ -366,6 +366,26 @@ section > * {
         linear-gradient(to bottom, rgba(13, 11, 9, 0.35) 0%, transparent 30%, transparent 65%, rgba(13, 11, 9, 0.6) 100%);
 }
 
+/* Pantallas anchas (desktop / móvil apaisado): el video es vertical 9:16;
+   con cover se recorta con demasiado zoom. Se muestra completo, centrado,
+   con el propio poster difuminado rellenando los lados. */
+@media (orientation: landscape) {
+    .hero .video-bg video {
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero .video-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('/assets/hero-poster-3.jpg') center / cover no-repeat;
+        filter: blur(48px) brightness(0.45);
+        transform: scale(1.15);
+    }
+}
+
 /* Message: overlay denso + zoom sutil */
 .message .video-bg video {
     animation: messageZoom 30s ease-in-out infinite alternate;
@@ -455,11 +475,14 @@ section > * {
     text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
 }
 
+/* Centrado con márgenes (no con transform: el reveal lo anularía) */
 .hero-scroll {
     position: absolute;
     bottom: var(--space-lg);
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: max-content;
     z-index: 1;
     display: flex;
     flex-direction: column;
