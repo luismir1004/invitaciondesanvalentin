@@ -45,6 +45,10 @@ export function updateButtonVisual() {
     btn.classList.toggle('playing', playing);
     btn.setAttribute('aria-label', playing ? 'Pausar música' : 'Reproducir música');
     btn.innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
+
+    // El icono del reproductor late mientras suena la canción
+    const player = document.querySelector('.music-player');
+    if (player) player.classList.toggle('is-playing', playing);
 }
 
 /**
