@@ -86,7 +86,7 @@
 
     <main class="container">
         <!-- Hero Section -->
-        <section class="hero" id="hero">
+        <section class="hero" id="hero" aria-labelledby="hero-heading">
             <div class="video-bg" aria-hidden="true">
                 <video autoplay muted loop playsinline preload="auto"
                        poster="./assets/hero-poster-3.jpg"
@@ -97,7 +97,7 @@
                  este bloque queda solo para lectores de pantalla y SEO -->
             <div class="hero-content hero-content-sr">
                 <span class="hero-eyebrow">Nuestro Aniversario</span>
-                <h1 class="hero-title">
+                <h1 class="hero-title" id="hero-heading">
                     <span class="hero-title-line">Un Año</span>
                     <span class="hero-title-line hero-title-accent">Contigo</span>
                 </h1>
@@ -108,65 +108,12 @@
                 <span class="hero-scroll-line"></span>
             </span>
         </section>
-
-        <!-- Message Section -->
-        <section class="message" id="message">
-            <div class="video-bg" aria-hidden="true">
-                <video muted loop playsinline preload="none"
-                       poster="./assets/message-poster.jpg"
-                       data-lazy-src="./assets/message-video-2.mp4">
-                </video>
-            </div>
-            <div class="message-content" data-reveal>
-                <span class="section-eyebrow">Para ti, Ale</span>
-                <p class="message-text">Ale, si el amor tuviera un idioma, yo lo aprendí escuchando cómo tu corazón se acompasa con el mío.</p>
-                <p class="message-text">No fue un solo instante el que me enamoró de ti, sino los mil pequeños milagros de despertar y encontrarte ahí.</p>
-                <p class="message-text">Eres mi verso favorito, ese que releo sin cansarme; la casa a la que siempre quiero volver.</p>
-                <p class="message-text">Y hoy, un año después, te sigo eligiendo como se elige el amanecer: sin dudarlo, cada mañana.</p>
-                <p class="message-signature">Tuyo, hoy y siempre,<br><span class="signature-name">Luis</span></p>
-            </div>
-        </section>
-
-        <!-- Reasons Section -->
-        <section class="reasons" id="razones">
-            <div class="section-head" data-reveal>
-                <span class="section-eyebrow">Por qué te amo</span>
-                <h2 class="section-title">Razones para amarte</h2>
-            </div>
-            <ul class="reasons-grid">
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">01</span>
-                    <p class="reason-text">Porque tu risa es el idioma en que aprendí a nombrar la felicidad.</p>
-                </li>
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">02</span>
-                    <p class="reason-text">Porque en tus manos hasta el silencio se siente como hogar.</p>
-                </li>
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">03</span>
-                    <p class="reason-text">Porque vuelves milagro lo cotidiano: un café, una lluvia, un martes cualquiera.</p>
-                </li>
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">04</span>
-                    <p class="reason-text">Porque me escuchas incluso en lo que callo, y entiendes lo que no sé decir.</p>
-                </li>
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">05</span>
-                    <p class="reason-text">Porque sueñas conmigo despierta y haces que el futuro deje de dar miedo.</p>
-                </li>
-                <li class="reason-item" data-reveal>
-                    <span class="reason-number">06</span>
-                    <p class="reason-text">Y porque, un año después, sigo descubriendo razones nuevas cada mañana.</p>
-                </li>
-            </ul>
-        </section>
-
         <!-- Counter Section -->
-        <section class="counter" id="counter">
+        <section class="counter" aria-labelledby="counter-heading" id="counter">
             <span class="shooting-star" aria-hidden="true"></span>
             <div class="section-head" data-reveal>
                 <span class="section-eyebrow">Nuestro tiempo</span>
-                <h2 class="section-title">Llevamos compartiendo momentos</h2>
+                <h2 class="section-title" id="counter-heading">Llevamos compartiendo momentos</h2>
             </div>
             <div class="counter-grid" data-reveal>
                 <div class="counter-item">
@@ -188,12 +135,11 @@
             </div>
             <p class="event-countdown" id="event-countdown" data-reveal hidden></p>
         </section>
-
         <!-- History / Timeline Section -->
-        <section class="history" id="historia">
+        <section class="history" aria-labelledby="history-heading" id="historia">
             <div class="section-head" data-reveal>
                 <span class="section-eyebrow">Nuestra historia</span>
-                <h2 class="section-title">Cómo llegamos aquí</h2>
+                <h2 class="section-title" id="history-heading">Cómo llegamos aquí</h2>
             </div>
             <ol class="timeline">
                 <li class="timeline-item" data-reveal>
@@ -230,12 +176,44 @@
                 </li>
             </ol>
         </section>
-
+        <!-- Reasons Section -->
+        <section class="reasons" aria-labelledby="reasons-heading" id="razones">
+            <div class="section-head" data-reveal>
+                <span class="section-eyebrow">Por qué te amo</span>
+                <h2 class="section-title" id="reasons-heading">Razones para amarte</h2>
+            </div>
+            <ul class="reasons-grid">
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">01</span>
+                    <p class="reason-text">Porque tu risa es el idioma en que aprendí a nombrar la felicidad.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">02</span>
+                    <p class="reason-text">Porque en tus manos hasta el silencio se siente como hogar.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">03</span>
+                    <p class="reason-text">Porque vuelves milagro lo cotidiano: un café, una lluvia, un martes cualquiera.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">04</span>
+                    <p class="reason-text">Porque me escuchas incluso en lo que callo, y entiendes lo que no sé decir.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">05</span>
+                    <p class="reason-text">Porque sueñas conmigo despierta y haces que el futuro deje de dar miedo.</p>
+                </li>
+                <li class="reason-item" data-reveal>
+                    <span class="reason-number">06</span>
+                    <p class="reason-text">Y porque, un año después, sigo descubriendo razones nuevas cada mañana.</p>
+                </li>
+            </ul>
+        </section>
         <!-- Photos Section -->
-        <section class="photos" id="photos">
+        <section class="photos" aria-labelledby="photos-heading" id="photos">
             <div class="section-head" data-reveal>
                 <span class="section-eyebrow">Galería</span>
-                <h2 class="section-title">Nuestros Recuerdos</h2>
+                <h2 class="section-title" id="photos-heading">Nuestros Recuerdos</h2>
             </div>
             <div class="masonry-grid" id="masonry-grid" data-reveal>
                 <figure class="photo-card photo-tall">
@@ -282,12 +260,28 @@
                 </figure>
             </div>
         </section>
-
+        <!-- Message Section -->
+        <section class="message" id="message" aria-label="Para ti, Ale">
+            <div class="video-bg" aria-hidden="true">
+                <video muted loop playsinline preload="none"
+                       poster="./assets/message-poster.jpg"
+                       data-lazy-src="./assets/message-video-2.mp4">
+                </video>
+            </div>
+            <div class="message-content" data-reveal>
+                <span class="section-eyebrow">Para ti, Ale</span>
+                <p class="message-text">Ale, si el amor tuviera un idioma, yo lo aprendí escuchando cómo tu corazón se acompasa con el mío.</p>
+                <p class="message-text">No fue un solo instante el que me enamoró de ti, sino los mil pequeños milagros de despertar y encontrarte ahí.</p>
+                <p class="message-text">Eres mi verso favorito, ese que releo sin cansarme; la casa a la que siempre quiero volver.</p>
+                <p class="message-text">Y hoy, un año después, te sigo eligiendo como se elige el amanecer: sin dudarlo, cada mañana.</p>
+                <p class="message-signature">Tuyo, hoy y siempre,<br><span class="signature-name">Luis</span></p>
+            </div>
+        </section>
         <!-- Music Section -->
-        <section class="music" id="music">
+        <section class="music" aria-labelledby="music-heading" id="music">
             <div class="section-head" data-reveal>
                 <span class="section-eyebrow">Banda sonora</span>
-                <h2 class="section-title">Nuestra Música</h2>
+                <h2 class="section-title" id="music-heading">Nuestra Música</h2>
             </div>
             <div class="music-player" data-reveal>
                 <div class="player-top">
@@ -315,9 +309,8 @@
                 </div>
             </div>
         </section>
-
         <!-- Event Details Section -->
-        <section class="event" id="evento">
+        <section class="event" aria-labelledby="event-heading" id="evento">
             <div class="video-bg" aria-hidden="true">
                 <video muted loop playsinline preload="none"
                        poster="./assets/event-poster.jpg"
@@ -326,7 +319,7 @@
             </div>
             <div class="section-head" data-reveal>
                 <span class="section-eyebrow">La celebración</span>
-                <h2 class="section-title">Detalles del Evento</h2>
+                <h2 class="section-title" id="event-heading">Detalles del Evento</h2>
             </div>
             <div class="event-card" data-reveal>
                 <ul class="event-details">
@@ -373,9 +366,8 @@
                 </div>
             </div>
         </section>
-
         <!-- CTA Section -->
-        <section class="cta" id="cta">
+        <section class="cta" id="cta" aria-label="Acepta la invitación">
             <div class="video-bg" aria-hidden="true">
                 <video muted loop playsinline preload="none"
                        poster="./assets/cta-poster.jpg"
@@ -393,19 +385,19 @@
                 <p class="rsvp-confirmation" id="rsvp-confirmation" role="status" aria-live="polite" hidden>&#10003; ¡Gracias por aceptar! Nos vemos pronto 💕</p>
             </div>
         </section>
-
-        <!-- Footer -->
-        <footer class="footer">
-            <p class="footer-monogram">L <span class="intro-amp">&amp;</span> A</p>
-            <div class="ornament footer-ornament" aria-hidden="true">
-                <span class="ornament-line"></span>
-                <span class="ornament-mark">&#10084;</span>
-                <span class="ornament-line"></span>
-            </div>
-            <p class="footer-note">Hecho con amor para ti</p>
-            <p class="footer-date">20 &middot; Julio &middot; 2026</p>
-        </footer>
     </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-monogram">L <span class="intro-amp">&amp;</span> A</p>
+        <div class="ornament footer-ornament" aria-hidden="true">
+            <span class="ornament-line"></span>
+            <span class="ornament-mark">&#10084;</span>
+            <span class="ornament-line"></span>
+        </div>
+        <p class="footer-note">Hecho con amor para ti</p>
+        <p class="footer-date">20 &middot; Julio &middot; 2026</p>
+    </footer>
 
     <!-- Lightbox -->
     <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-label="Foto ampliada" hidden>

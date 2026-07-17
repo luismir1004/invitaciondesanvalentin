@@ -116,6 +116,9 @@
     /* Motion */
     --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
     --transition: 0.3s var(--ease-out);
+
+    /* Textura de grano cinematográfico (una sola definición) */
+    --grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
 /* ── Reset & Base ────────────────────────────────────────── */
@@ -172,7 +175,7 @@ body::after {
     z-index: 500;
     pointer-events: none;
     opacity: 0.03;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: var(--grain);
 }
 
 /* ── Sections ────────────────────────────────────────────── */
@@ -184,14 +187,25 @@ section {
     justify-content: center;
 }
 
-section > * {
+/* Ancho de columna SOLO para bloques de contenido conocidos.
+   (Nada de `section > *`: los fondos, videos y elementos decorativos
+   no deben heredar anchos por accidente.) */
+section > .section-head,
+section > .hero-content,
+section > .message-content,
+section > .reasons-grid,
+section > .counter-grid,
+section > .event-countdown,
+section > .masonry-grid,
+section > .music-player,
+section > .event-card,
+section > .cta-content {
     width: 100%;
     max-width: var(--content-width);
 }
 
 /* ── Shared: eyebrows, section heads, ornaments ──────────── */
-.section-eyebrow,
-.hero-eyebrow {
+.section-eyebrow {
     display: block;
     font-family: var(--font-sans);
     font-size: 0.72rem;
@@ -253,14 +267,6 @@ section > * {
     color: var(--gold);
     font-size: 0.85rem;
     line-height: 1;
-}
-
-.hero .ornament-mark {
-    filter: drop-shadow(0 0 6px rgba(212, 175, 110, 0.4));
-}
-
-.hero .ornament-line {
-    background: linear-gradient(to var(--to, right), transparent, rgba(212, 175, 110, 0.6));
 }
 
 /* ── Intro / Welcome ─────────────────────────────────────── */
@@ -327,7 +333,7 @@ section > * {
     z-index: 5;
     pointer-events: none;
     opacity: 0.05;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-image: var(--grain);
 }
 
 /* Marco de tarjeta impresa: doble filete dorado con gemas en las esquinas */
@@ -557,7 +563,6 @@ section > * {
     position: absolute;
     inset: 0;
     z-index: 0;
-    max-width: none;
 }
 
 .video-bg video {
@@ -643,50 +648,12 @@ section > * {
     border: 0;
 }
 
-.hero-eyebrow {
-    margin-bottom: var(--space-md);
-    text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
-}
-
-/* El intro enfoca el título al cerrarse (a11y): sin anillo visible */
+/* El intro enfoca el título al cerrarse (a11y): sin anillo visible.
+   (El texto del hero es solo para lectores de pantalla: el diseño
+   visual vive dentro del video.) */
 .hero-title:focus,
 .hero-title:focus-visible {
     outline: none;
-}
-
-.hero-title {
-    font-family: var(--font-serif);
-    font-weight: 500;
-    font-size: clamp(3.6rem, 14vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: -0.01em;
-    color: var(--ink);
-    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5), 0 4px 40px rgba(0, 0, 0, 0.3);
-}
-
-.hero-title-line {
-    display: block;
-}
-
-.hero-title-accent {
-    font-style: italic;
-    font-weight: 500;
-    color: var(--gold);
-    text-shadow: 0 2px 24px rgba(212, 175, 110, 0.3), 0 4px 40px rgba(0, 0, 0, 0.4);
-}
-
-.hero .ornament {
-    margin: var(--space-md) 0;
-}
-
-.hero-date {
-    font-family: var(--font-sans);
-    font-size: clamp(0.9rem, 2.6vw, 1.05rem);
-    font-weight: 400;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.5);
 }
 
 /* Centrado con márgenes (no con transform: el reveal lo anularía) */
@@ -1541,7 +1508,6 @@ section > * {
     background-color: var(--bg-primary);
 }
 
-.cta > .ornament,
 .cta > .cta-content {
     position: relative;
     z-index: 1;

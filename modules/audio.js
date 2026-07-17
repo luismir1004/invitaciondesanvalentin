@@ -161,7 +161,5 @@ export function initAudioToggle() {
     const btn = document.getElementById('audio-toggle');
     if (btn) {
         btn.addEventListener('click', togglePlay);
-        // Mantener exposición global para compatibilidad
-        window.togglePlay = togglePlay;
     }
 }
