@@ -18,7 +18,7 @@ function initAudioSystem() {
     audio.volume = volume;
     audio.preload = 'metadata';
 
-    const Ctx = window.AudioContext || window.webkitAudioContext;
+    const Ctx = window.AudioContext || /** @type {any} */ (window).webkitAudioContext;
     if (Ctx) audioContext = new Ctx();
 }
 
@@ -57,8 +57,8 @@ export function updateButtonVisual() {
 export function initPlayerUI() {
     if (!audio) initAudioSystem();
 
-    const fill = document.querySelector('.progress-fill');
-    const track = document.querySelector('.progress-bar');
+    const fill = /** @type {HTMLElement | null} */ (document.querySelector('.progress-fill'));
+    const track = /** @type {HTMLElement | null} */ (document.querySelector('.progress-bar'));
     const curEl = document.querySelector('.time-current');
     const totEl = document.querySelector('.time-total');
 

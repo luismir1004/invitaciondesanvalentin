@@ -4,14 +4,14 @@
 
 export function initLightbox() {
     const lightbox = document.getElementById('lightbox');
-    const imgEl = document.getElementById('lightbox-image');
+    const imgEl = /** @type {HTMLImageElement | null} */ (document.getElementById('lightbox-image'));
     const capEl = document.getElementById('lightbox-caption');
     const gallery = document.getElementById('masonry-grid');
     if (!lightbox || !imgEl || !gallery) return;
 
-    const closeBtn = lightbox.querySelector('.lightbox-close');
-    const prevBtn = lightbox.querySelector('.lightbox-prev');
-    const nextBtn = lightbox.querySelector('.lightbox-next');
+    const closeBtn = /** @type {HTMLElement | null} */ (lightbox.querySelector('.lightbox-close'));
+    const prevBtn = /** @type {HTMLElement | null} */ (lightbox.querySelector('.lightbox-prev'));
+    const nextBtn = /** @type {HTMLElement | null} */ (lightbox.querySelector('.lightbox-next'));
 
     const images = Array.from(gallery.querySelectorAll('img'));
     if (!images.length) return;
@@ -73,14 +73,16 @@ export function initLightbox() {
     }
 
     gallery.addEventListener('click', (e) => {
-        const img = e.target.closest('img');
+        const target = /** @type {HTMLElement} */ (e.target);
+        const img = /** @type {HTMLImageElement | null} */ (target.closest('img'));
         if (img) open(images.indexOf(img));
     });
 
     // Apertura por teclado (Enter / Espacio) sobre las fotos.
     gallery.addEventListener('keydown', (e) => {
         if (e.key !== 'Enter' && e.key !== ' ') return;
-        const img = e.target.closest('img');
+        const target = /** @type {HTMLElement} */ (e.target);
+        const img = /** @type {HTMLImageElement | null} */ (target.closest('img'));
         if (img) {
             e.preventDefault();
             open(images.indexOf(img));

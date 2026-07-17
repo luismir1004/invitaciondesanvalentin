@@ -37,7 +37,7 @@ function initEventCountdown() {
         // Días de calendario hasta la cena (a medianoche del día del evento)
         const startOfEventDay = new Date(s.year, s.month - 1, s.day);
         const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-        const days = Math.round((startOfEventDay - startOfToday) / 86400000);
+        const days = Math.round((startOfEventDay.getTime() - startOfToday.getTime()) / 86400000);
 
         if (days > 1) {
             el.textContent = `Faltan ${days} días para nuestra celebración ✨`;
@@ -111,7 +111,7 @@ function setupAudio() {
 
 // ── Scroll Fade (hero scroll indicator) ───────────────────
 function initScrollFade() {
-    const scrollHint = document.querySelector('.hero-scroll');
+    const scrollHint = /** @type {HTMLElement | null} */ (document.querySelector('.hero-scroll'));
     if (!scrollHint) return;
 
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -119,18 +119,21 @@ function initScrollFade() {
 
     window.addEventListener('scroll', () => {
         const opacity = Math.max(0, 1 - window.scrollY / 200);
-        scrollHint.style.opacity = opacity;
+        scrollHint.style.opacity = String(opacity);
         scrollHint.style.pointerEvents = opacity === 0 ? 'none' : '';
     }, { passive: true });
 }
 
 // ── Lazy Video Loading ────────────────────────────────────
 function initLazyVideos() {
-    const videos = Array.from(document.querySelectorAll('video[data-lazy-src]'));
+    const videos = /** @type {HTMLVideoElement[]} */ (
+        Array.from(document.querySelectorAll('video[data-lazy-src]'))
+    );
     if (!videos.length) return;
 
+    /** @param {HTMLVideoElement} v */
     const loadSrc = (v) => {
-        if (!v.src) v.src = v.dataset.lazySrc;
+        if (!v.src) v.src = v.dataset.lazySrc || '';
     };
 
     if (!('IntersectionObserver' in window)) {
@@ -141,7 +144,7 @@ function initLazyVideos() {
     const observer = new IntersectionObserver((entries, obs) => {
         entries.forEach((entry) => {
             if (entry.isIntersecting) {
-                const video = entry.target;
+                const video = /** @type {HTMLVideoElement} */ (entry.target);
                 loadSrc(video);
                 video.play().catch(() => {});
                 obs.unobserve(video);
@@ -159,7 +162,7 @@ function initLazyVideos() {
         videos.forEach((v) => {
             if (v.hasAttribute('data-lazy-eager') && !v.src) {
                 v.preload = 'auto';
-                v.src = v.dataset.lazySrc;
+                v.src = v.dataset.lazySrc || '';
                 v.load();
             }
         });
@@ -208,7 +211,7 @@ function celebrate(origin) {
 
 // ── Button Setup ───────────────────────────────────────────
 function setupButtons() {
-    const rsvpButton = document.getElementById('rsvp-button');
+    const rsvpButton = /** @type {HTMLButtonElement | null} */ (document.getElementById('rsvp-button'));
     const confirmation = document.getElementById('rsvp-confirmation');
 
     if (rsvpButton) {

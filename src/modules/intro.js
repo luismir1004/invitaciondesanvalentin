@@ -17,7 +17,7 @@ export function initIntro() {
     const finish = () => {
         intro.hidden = true;
         document.body.style.overflow = '';
-        const heading = document.querySelector('.hero-title');
+        const heading = /** @type {HTMLElement | null} */ (document.querySelector('.hero-title'));
         if (heading) {
             heading.setAttribute('tabindex', '-1');
             heading.focus({ preventScroll: true });

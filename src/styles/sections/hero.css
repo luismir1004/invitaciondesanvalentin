@@ -32,7 +32,7 @@
    así que sin Ken Burns y con overlay suave solo en los bordes */
 .hero .video-bg::after {
     background:
-        linear-gradient(to bottom, rgba(13, 11, 9, 0.35) 0%, transparent 30%, transparent 65%, rgba(13, 11, 9, 0.6) 100%);
+        linear-gradient(to bottom, rgb(13, 11, 9, 0.35) 0%, transparent 30%, transparent 65%, rgb(13, 11, 9, 0.6) 100%);
 }
 
 /* Pantallas anchas (desktop / móvil apaisado): el video es vertical 9:16;
@@ -66,17 +66,17 @@
 }
 
 .message .video-bg::after {
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.72) 50%, rgba(13, 11, 9, 0.9) 100%);
+    background: linear-gradient(to bottom, rgb(13, 11, 9, 0.82) 0%, rgb(13, 11, 9, 0.72) 50%, rgb(13, 11, 9, 0.9) 100%);
 }
 
 /* Event: overlay fuerte para tarjeta glass */
 .event .video-bg::after {
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.65) 50%, rgba(13, 11, 9, 0.9) 100%);
+    background: linear-gradient(to bottom, rgb(13, 11, 9, 0.85) 0%, rgb(13, 11, 9, 0.65) 50%, rgb(13, 11, 9, 0.9) 100%);
 }
 
 /* CTA: overlay medio */
 .cta .video-bg::after {
-    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.55) 50%, rgba(13, 11, 9, 0.85) 100%);
+    background: linear-gradient(to bottom, rgb(13, 11, 9, 0.75) 0%, rgb(13, 11, 9, 0.55) 50%, rgb(13, 11, 9, 0.85) 100%);
 }
 
 .hero-content {
@@ -93,7 +93,7 @@
     padding: 0;
     margin: -1px;
     overflow: hidden;
-    clip: rect(0, 0, 0, 0);
+    clip-path: inset(50%);
     white-space: nowrap;
     border: 0;
 }

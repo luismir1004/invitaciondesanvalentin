@@ -36,7 +36,7 @@ img {
 }
 
 ::selection {
-    background: rgba(212, 175, 110, 0.3);
+    background: rgb(212, 175, 110, 0.3);
     color: var(--gold-soft);
 }
 

@@ -21,9 +21,9 @@
     font-size: clamp(18rem, 46vw, 32rem);
     line-height: 1;
     background: linear-gradient(120deg,
-        rgba(212, 175, 110, 0.04) 35%,
-        rgba(235, 217, 172, 0.11) 50%,
-        rgba(212, 175, 110, 0.04) 65%);
+        rgb(212, 175, 110, 0.04) 35%,
+        rgb(235, 217, 172, 0.11) 50%,
+        rgb(212, 175, 110, 0.04) 65%);
     background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
@@ -42,7 +42,7 @@
     position: absolute;
     z-index: -1;
     inset: 0;
-    background: radial-gradient(ellipse 50% 40% at 8% 12%, rgba(192, 106, 122, 0.07), transparent 70%);
+    background: radial-gradient(ellipse 50% 40% at 8% 12%, rgb(192, 106, 122, 0.07), transparent 70%);
     pointer-events: none;
 }
 
@@ -88,7 +88,7 @@
 }
 
 .reason-item:hover .reason-number {
-    filter: brightness(1.2) drop-shadow(0 0 8px rgba(212, 175, 110, 0.35));
+    filter: brightness(1.2) drop-shadow(0 0 8px rgb(212, 175, 110, 0.35));
     transform: translateX(3px);
 }
 

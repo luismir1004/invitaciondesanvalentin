@@ -26,12 +26,12 @@
 
 .intro-veil-left {
     left: 0;
-    box-shadow: inset -1px 0 0 rgba(212, 175, 110, 0.10);
+    box-shadow: inset -1px 0 0 rgb(212, 175, 110, 0.10);
 }
 
 .intro-veil-right {
     right: 0;
-    box-shadow: inset 1px 0 0 rgba(212, 175, 110, 0.10);
+    box-shadow: inset 1px 0 0 rgb(212, 175, 110, 0.10);
 }
 
 .intro.is-open .intro-veil-left {
@@ -46,7 +46,7 @@
 .intro-glow {
     position: absolute;
     inset: 0;
-    background: radial-gradient(ellipse 62% 48% at 50% 46%, rgba(212, 175, 110, 0.13), transparent 70%);
+    background: radial-gradient(ellipse 62% 48% at 50% 46%, rgb(212, 175, 110, 0.13), transparent 70%);
     animation: candleBreath 6s ease-in-out infinite;
     transition: opacity 0.5s var(--ease-out);
 }
@@ -71,8 +71,8 @@
 .intro-frame {
     position: absolute;
     inset: clamp(14px, 3vw, 26px);
-    border: 1px solid rgba(212, 175, 110, 0.22);
-    outline: 1px solid rgba(212, 175, 110, 0.08);
+    border: 1px solid rgb(212, 175, 110, 0.22);
+    outline: 1px solid rgb(212, 175, 110, 0.08);
     outline-offset: 4px;
     pointer-events: none;
     transition: opacity 0.5s var(--ease-out);
@@ -84,7 +84,7 @@
     height: 5px;
     background: var(--gold);
     transform: rotate(45deg);
-    box-shadow: 0 0 8px rgba(212, 175, 110, 0.55);
+    box-shadow: 0 0 8px rgb(212, 175, 110, 0.55);
 }
 
 .frame-gem:nth-child(1) { top: -3px; left: -3px; }
@@ -110,7 +110,7 @@
     color: var(--gold);
     opacity: 0;
     animation: sparkTwinkle 4s ease-in-out infinite;
-    text-shadow: 0 0 10px rgba(212, 175, 110, 0.6);
+    text-shadow: 0 0 10px rgb(212, 175, 110, 0.6);
 }
 
 .intro-spark:nth-child(1) { top: 18%; left: 16%; font-size: 0.8rem; animation-delay: 0s; }
@@ -161,8 +161,8 @@
     justify-content: center;
     gap: 0.6rem;
     border-radius: 50%;
-    border: 1px solid rgba(212, 175, 110, 0.30);
-    background: radial-gradient(circle at 50% 42%, rgba(212, 175, 110, 0.07), transparent 68%);
+    border: 1px solid rgb(212, 175, 110, 0.30);
+    background: radial-gradient(circle at 50% 42%, rgb(212, 175, 110, 0.07), transparent 68%);
 }
 
 /* Anillo interior fino, efecto grabado */
@@ -171,7 +171,7 @@
     position: absolute;
     inset: 7px;
     border-radius: 50%;
-    border: 1px solid rgba(212, 175, 110, 0.13);
+    border: 1px solid rgb(212, 175, 110, 0.13);
 }
 
 /* Destello de luz que recorre el anillo, como una joya girando */
@@ -180,7 +180,7 @@
     position: absolute;
     inset: -1px;
     border-radius: 50%;
-    background: conic-gradient(transparent 0deg, transparent 300deg, rgba(235, 217, 172, 0.85) 330deg, transparent 360deg);
+    background: conic-gradient(transparent 0deg, transparent 300deg, rgb(235, 217, 172, 0.85) 330deg, transparent 360deg);
     -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 1.5px));
     mask: radial-gradient(farthest-side, transparent calc(100% - 2.5px), #000 calc(100% - 1.5px));
     animation: crestGlint 7s linear infinite;
@@ -194,7 +194,7 @@
     color: var(--gold);
     font-size: 0.8rem;
     line-height: 1;
-    filter: drop-shadow(0 0 6px rgba(212, 175, 110, 0.5));
+    filter: drop-shadow(0 0 6px rgb(212, 175, 110, 0.5));
 }
 
 .intro-monogram {
@@ -214,7 +214,7 @@
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-        filter: drop-shadow(0 3px 22px rgba(212, 175, 110, 0.28));
+        filter: drop-shadow(0 3px 22px rgb(212, 175, 110, 0.28));
         animation: monogramSheen 7s ease-in-out infinite alternate;
     }
 }
@@ -249,8 +249,8 @@
 }
 
 @keyframes gentlePulse {
-    0%, 100% { box-shadow: 0 6px 20px rgba(212, 175, 110, 0.22); }
-    50%      { box-shadow: 0 6px 28px rgba(212, 175, 110, 0.40), 0 0 0 6px rgba(212, 175, 110, 0.10); }
+    0%, 100% { box-shadow: 0 6px 20px rgb(212, 175, 110, 0.22); }
+    50%      { box-shadow: 0 6px 28px rgb(212, 175, 110, 0.40), 0 0 0 6px rgb(212, 175, 110, 0.10); }
 }
 
 .intro-button {
@@ -261,7 +261,7 @@
 /* El intro enfoca este botón al cargar: anillo dorado sutil,
    no el outline rosa por defecto */
 .intro-button:focus-visible {
-    outline: 2px solid rgba(212, 175, 110, 0.65);
+    outline: 2px solid rgb(212, 175, 110, 0.65);
     outline-offset: 4px;
 }
 

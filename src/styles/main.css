@@ -9,25 +9,25 @@
 @layer base, layout, components, sections, overrides;
 
 /* Sin capa (máxima prioridad natural): fuentes y tokens */
-@import './fonts.css';
-@import './tokens.css';
+@import url('./fonts.css');
+@import url('./tokens.css');
 
-@import './base.css';
-@import './layout.css';
-@import './components.css';
+@import url('./base.css');
+@import url('./layout.css');
+@import url('./components.css');
 
-@import './sections/intro.css';
-@import './sections/hero.css';
-@import './sections/message.css';
-@import './sections/reasons.css';
-@import './sections/counter.css';
-@import './sections/history.css';
-@import './sections/photos.css';
-@import './sections/music.css';
-@import './sections/event.css';
-@import './sections/cta.css';
-@import './sections/footer.css';
-@import './sections/lightbox.css';
-@import './sections/reveal.css';
+@import url('./sections/intro.css');
+@import url('./sections/hero.css');
+@import url('./sections/message.css');
+@import url('./sections/reasons.css');
+@import url('./sections/counter.css');
+@import url('./sections/history.css');
+@import url('./sections/photos.css');
+@import url('./sections/music.css');
+@import url('./sections/event.css');
+@import url('./sections/cta.css');
+@import url('./sections/footer.css');
+@import url('./sections/lightbox.css');
+@import url('./sections/reveal.css');
 
-@import './overrides.css';
+@import url('./overrides.css');

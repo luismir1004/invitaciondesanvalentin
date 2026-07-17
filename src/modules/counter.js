@@ -26,7 +26,7 @@ export function initCounter(startDate) {
 
   function update() {
     const now = new Date();
-    const diff = now - startDate;
+    const diff = now.getTime() - startDate.getTime();
 
     if (diff < 0) {
       setVal(daysEl, '0');
