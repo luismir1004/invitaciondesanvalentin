@@ -6,9 +6,19 @@
         "checkJs": true,
         "strict": false,
         "noEmit": true,
-        "lib": ["ES2022", "DOM", "DOM.Iterable"],
+        "lib": [
+            "ES2022",
+            "DOM",
+            "DOM.Iterable"
+        ],
         "types": []
     },
-    "include": ["src/**/*.js"],
-    "exclude": ["node_modules", "dist"]
+    "include": [
+        "src/**/*.js"
+    ],
+    "exclude": [
+        "node_modules",
+        "dist",
+        "src/sw.js"
+    ]
 }

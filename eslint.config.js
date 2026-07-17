@@ -34,6 +34,17 @@ export default [
         }
     },
     {
+        // Service worker: contexto de worker, no de ventana
+        files: ['src/sw.js'],
+        languageOptions: {
+            globals: {
+                self: 'readonly',
+                caches: 'readonly',
+                Promise: 'readonly'
+            }
+        }
+    },
+    {
         ignores: ['dist/', 'node_modules/', 'public/']
     }
 ];

@@ -2,7 +2,7 @@
    APP — Editorial Minimalista (Aniversario)
    ============================================================ */
 
-import { playAmbientMelody, togglePlay, updateButtonVisual, initPlayerUI, initAudioToggle } from './modules/audio.js';
+import { playAmbientMelody, updateButtonVisual, initPlayerUI, initAudioToggle } from './modules/audio.js';
 import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initEvent, EVENT } from './modules/event.js';

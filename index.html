@@ -416,12 +416,6 @@
 
     <!-- Scripts -->
     <script type="module" src="/src/app.js"></script>
-    <script>
-        if ('serviceWorker' in navigator) {
-            navigator.serviceWorker.register('./sw.js')
-                .catch(e => console.log('Service Worker registration failed:', e));
-        }
-    </script>
 </body>
 
 </html>
