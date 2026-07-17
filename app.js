@@ -7,12 +7,12 @@ import { initCounter } from './modules/counter.js';
 import { initLightbox } from './modules/lightbox.js';
 import { initEvent, EVENT } from './modules/event.js';
 import { initIntro } from './modules/intro.js';
+import { INVITACION } from './config.js';
 
 // ── Initialization ─────────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
-    // Contador desde el inicio de la relación (editable en <html data-start-date>)
-    const startDateStr = document.documentElement.dataset.startDate || '2025-07-20T00:00:00';
-    initCounter(new Date(startDateStr));
+    // Contador desde el inicio de la relación (editable en config.js)
+    initCounter(new Date(INVITACION.inicioRelacion));
 
     initIntro();
     setupAudio();
@@ -207,21 +207,14 @@ function celebrate(origin) {
 }
 
 // ── Button Setup ───────────────────────────────────────────
-const LUIS_WHATSAPP_NUMBER = '584121955216';
-
 function setupButtons() {
     const rsvpButton = document.getElementById('rsvp-button');
     const confirmation = document.getElementById('rsvp-confirmation');
 
     if (rsvpButton) {
         rsvpButton.addEventListener('click', () => {
-            const message = encodeURIComponent(
-                '💛 *¡Sí, acepto!* 💛\n\n' +
-                'Mi amor, acepto tu invitación para celebrar nuestro primer año juntos. 🥂\n\n' +
-                'Nos vemos el *20 de julio* en Bonsai Sushi. ✨\n\n' +
-                'Te amo, Luis. Un año contigo y apenas comienza. 💕'
-            );
-            const url = `https://wa.me/${LUIS_WHATSAPP_NUMBER}?text=${message}`;
+            const message = encodeURIComponent(INVITACION.mensajeAceptacion);
+            const url = `https://wa.me/${INVITACION.whatsapp}?text=${message}`;
             const win = window.open(url, '_blank', 'noopener');
             if (!win) {
                 // Popup bloqueado: navegar directo para no perder el mensaje

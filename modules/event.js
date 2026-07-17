@@ -1,19 +1,18 @@
 /* ============================================================
    EVENT MODULE — Detalles del evento (mapa + agregar al calendario)
+   Los datos viven en config.js (única fuente de verdad).
    ============================================================ */
 
-/* ── CONFIGURACIÓN EDITABLE ──────────────────────────────────
-   Luis: cambia estos valores por los reales de la celebración.
-   Las fechas usan formato: año, mes (1-12), día, hora (0-23), minuto.
-   ─────────────────────────────────────────────────────────── */
+import { INVITACION } from '../config.js';
+
 export const EVENT = {
-    title: 'Nuestro Aniversario — Un Año Contigo',
-    start: { year: 2026, month: 7, day: 20, hour: 19, minute: 0 }, // 20 jul 2026, 7:00 PM
-    end: { year: 2026, month: 7, day: 20, hour: 23, minute: 0 },   // 20 jul 2026, 11:00 PM
-    venue: 'Bonsai Sushi',
-    address: 'C.C. Sambil, Chacao, Caracas',
-    coords: { lat: 10.489442, lng: -66.855118 }, // Centro Sambil Caracas
-    description: 'Celebremos juntos nuestro primer año. Con amor, Luis y Alejandra.'
+    title: INVITACION.evento.titulo,
+    start: INVITACION.evento.inicio,
+    end: INVITACION.evento.fin,
+    venue: INVITACION.evento.lugar,
+    address: INVITACION.evento.direccion,
+    coords: INVITACION.evento.coords,
+    description: INVITACION.evento.descripcion
 };
 
 function pad(n) {
