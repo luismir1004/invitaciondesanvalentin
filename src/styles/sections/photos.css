@@ -1,0 +1,116 @@
+@layer sections {
+
+/* ── Photos Section ──────────────────────────────────────── */
+/* Fondo: lavados de luz en esquinas opuestas; las fotos protagonizan */
+.photos {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--bg-alt);
+}
+
+.photos::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: -15%;
+    background:
+        radial-gradient(ellipse 45% 35% at 100% 0%, rgba(212, 175, 110, 0.07), transparent 70%),
+        radial-gradient(ellipse 45% 35% at 0% 100%, rgba(192, 106, 122, 0.06), transparent 70%);
+    animation: auroraDrift 24s ease-in-out infinite alternate;
+    pointer-events: none;
+}
+
+/* Aurora: los lavados de color derivan muy lento */
+@keyframes auroraDrift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(-2.5%, 2%) scale(1.05); }
+}
+
+.photos > .section-head,
+.photos > .masonry-grid {
+    max-width: 720px;
+}
+
+.masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--space-sm);
+    width: 100%;
+}
+
+.photo-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.photo-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.photo-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    transition: transform 0.6s var(--ease-out);
+}
+
+.photo-card:hover img {
+    transform: scale(1.06);
+}
+
+/* Foco por teclado: offset negativo para que no lo recorte overflow:hidden */
+.photo-card img:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -4px;
+}
+
+/* Caption sobre scrim: la historia de cada foto sin abrir el lightbox */
+.photo-caption {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 2rem 0.9rem 0.7rem;
+    background: linear-gradient(to top, rgba(13, 11, 9, 0.85), transparent);
+    font-family: var(--font-serif);
+    font-style: italic;
+    font-size: 0.95rem;
+    line-height: 1.35;
+    color: var(--gold-soft);
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.4s var(--ease-out), transform 0.4s var(--ease-out);
+}
+
+.photo-card:hover .photo-caption,
+.photo-card:focus-within .photo-caption {
+    opacity: 1;
+    transform: none;
+}
+
+/* En pantallas táctiles no hay hover: el caption vive siempre visible */
+@media (hover: none) {
+    .photo-caption {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.photo-card.photo-tall {
+    grid-row: span 2;
+}
+
+.photo-card.photo-tall img {
+    height: 100%;
+    min-height: 536px;
+}
+
+}

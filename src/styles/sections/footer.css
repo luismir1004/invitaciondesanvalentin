@@ -1,0 +1,70 @@
+@layer sections {
+
+/* ── Footer ──────────────────────────────────────────────── */
+/* Fondo: resplandor dorado subiendo desde el borde, como un amanecer */
+.footer {
+    position: relative;
+    z-index: 0;
+    overflow: hidden;
+    background-color: var(--bg-alt);
+    padding: var(--space-xl) var(--space-md);
+    text-align: center;
+}
+
+.footer::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: radial-gradient(ellipse 80% 65% at 50% 100%, rgba(212, 175, 110, 0.10), transparent 72%);
+    animation: candleBreath 7s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.footer-monogram {
+    font-family: var(--font-serif);
+    font-size: 1.7rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    color: var(--gold);
+    line-height: 1;
+}
+
+@supports (-webkit-background-clip: text) or (background-clip: text) {
+    .footer-monogram {
+        background: linear-gradient(150deg, #F5EFE7 10%, #EBD9AC 48%, #C9A05E 95%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+}
+
+.footer-ornament {
+    margin: var(--space-sm) 0;
+}
+
+.footer-ornament .ornament-line {
+    width: clamp(28px, 8vw, 48px);
+}
+
+.footer-ornament .ornament-mark {
+    font-size: 0.7rem;
+}
+
+.footer-note {
+    font-size: 0.8rem;
+    font-weight: 400;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+}
+
+.footer-date {
+    margin-top: 0.4rem;
+    font-size: 0.66rem;
+    font-weight: 500;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold-label);
+}
+
+}

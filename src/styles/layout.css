@@ -1,0 +1,29 @@
+@layer layout {
+
+/* ── Sections ────────────────────────────────────────────── */
+section {
+    padding: var(--space-2xl) var(--space-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Ancho de columna SOLO para bloques de contenido conocidos.
+   (Nada de `section > *`: los fondos, videos y elementos decorativos
+   no deben heredar anchos por accidente.) */
+section > .section-head,
+section > .hero-content,
+section > .message-content,
+section > .reasons-grid,
+section > .counter-grid,
+section > .event-countdown,
+section > .masonry-grid,
+section > .music-player,
+section > .event-card,
+section > .cta-content {
+    width: 100%;
+    max-width: var(--content-width);
+}
+
+}

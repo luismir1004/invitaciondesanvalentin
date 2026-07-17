@@ -1,0 +1,68 @@
+@layer components {
+
+/* ── Shared: eyebrows, section heads, ornaments ──────────── */
+.section-eyebrow {
+    display: block;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.section-head {
+    text-align: center;
+    margin-bottom: var(--space-lg);
+}
+
+.section-head .section-eyebrow {
+    margin-bottom: var(--space-sm);
+}
+
+/* Firma de la casa: destello dorado bajo cada título de sección */
+.section-head::after {
+    content: '\2726';
+    display: block;
+    margin-top: 0.9rem;
+    color: var(--gold);
+    font-size: 0.6rem;
+    line-height: 1;
+    opacity: 0.75;
+    text-shadow: 0 0 8px rgba(212, 175, 110, 0.5);
+}
+
+.section-title {
+    font-family: var(--font-serif);
+    font-weight: 500;
+    font-size: clamp(1.9rem, 5vw, 2.6rem);
+    line-height: 1.15;
+    color: var(--ink);
+    letter-spacing: 0.01em;
+}
+
+.ornament {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    margin: var(--space-lg) 0;
+}
+
+.ornament-line {
+    width: clamp(40px, 12vw, 80px);
+    height: 1px;
+    background: linear-gradient(to var(--to, right), transparent, var(--gold));
+}
+
+.ornament-line:last-child {
+    --to: left;
+}
+
+.ornament-mark {
+    color: var(--gold);
+    font-size: 0.85rem;
+    line-height: 1;
+}
+
+}

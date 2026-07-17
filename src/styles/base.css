@@ -1,0 +1,60 @@
+@layer base {
+
+/* ── Reset & Base ────────────────────────────────────────── */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    line-height: 1.7;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+::selection {
+    background: rgba(212, 175, 110, 0.3);
+    color: var(--gold-soft);
+}
+
+.container {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Grano cinematográfico global: la misma textura del intro,
+   sobre toda la página (debajo del lightbox y del telón) */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 500;
+    pointer-events: none;
+    opacity: 0.03;
+    background-image: var(--grain);
+}
+
+}

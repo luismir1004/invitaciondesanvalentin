@@ -1,0 +1,145 @@
+@layer sections {
+
+/* ── Hero Section ────────────────────────────────────────── */
+.hero {
+    min-height: 100dvh;
+    position: relative;
+    overflow: hidden;
+    background-color: var(--bg-primary);
+}
+
+/* ── Video Background (reutilizable) ───────────────────── */
+.video-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+}
+
+.video-bg video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    background-color: var(--bg-primary);
+}
+
+.video-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+}
+
+/* Hero: el video trae el texto y su propio movimiento de cámara,
+   así que sin Ken Burns y con overlay suave solo en los bordes */
+.hero .video-bg::after {
+    background:
+        linear-gradient(to bottom, rgba(13, 11, 9, 0.35) 0%, transparent 30%, transparent 65%, rgba(13, 11, 9, 0.6) 100%);
+}
+
+/* Pantallas anchas (desktop / móvil apaisado): el video es vertical 9:16;
+   con cover se recorta con demasiado zoom. Se muestra completo, centrado,
+   con el propio poster difuminado rellenando los lados. */
+@media (orientation: landscape) {
+    .hero .video-bg video {
+        object-fit: contain;
+        position: relative;
+        z-index: 1;
+    }
+
+    .hero .video-bg::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: url('/assets/hero-poster-3.jpg') center / cover no-repeat;
+        filter: blur(48px) brightness(0.45);
+        transform: scale(1.15);
+    }
+}
+
+/* Message: overlay denso + zoom sutil */
+.message .video-bg video {
+    animation: messageZoom 30s ease-in-out infinite alternate;
+}
+
+@keyframes messageZoom {
+    0%   { transform: scale(1); }
+    100% { transform: scale(1.05); }
+}
+
+.message .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.82) 0%, rgba(13, 11, 9, 0.72) 50%, rgba(13, 11, 9, 0.9) 100%);
+}
+
+/* Event: overlay fuerte para tarjeta glass */
+.event .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.85) 0%, rgba(13, 11, 9, 0.65) 50%, rgba(13, 11, 9, 0.9) 100%);
+}
+
+/* CTA: overlay medio */
+.cta .video-bg::after {
+    background: linear-gradient(to bottom, rgba(13, 11, 9, 0.75) 0%, rgba(13, 11, 9, 0.55) 50%, rgba(13, 11, 9, 0.85) 100%);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+}
+
+/* Solo para lectores de pantalla: el texto visual está en el video */
+.hero-content-sr {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* El intro enfoca el título al cerrarse (a11y): sin anillo visible.
+   (El texto del hero es solo para lectores de pantalla: el diseño
+   visual vive dentro del video.) */
+.hero-title:focus,
+.hero-title:focus-visible {
+    outline: none;
+}
+
+/* Centrado con márgenes (no con transform: el reveal lo anularía) */
+.hero-scroll {
+    position: absolute;
+    bottom: var(--space-lg);
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    width: max-content;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+}
+
+.hero-scroll-text {
+    font-size: 0.62rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+.hero-scroll-line {
+    width: 1px;
+    height: 44px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+    animation: scrollPulse 2.4s var(--ease-out) infinite;
+    transform-origin: top;
+}
+
+@keyframes scrollPulse {
+    0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+    50% { transform: scaleY(1); opacity: 1; }
+}
+
+}

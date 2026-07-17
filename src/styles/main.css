@@ -1,0 +1,33 @@
+/* ============================================================
+   MAIN — Orquestador de estilos (Aniversario)
+
+   Arquitectura por capas (CSS Cascade Layers): el ORDEN de esta
+   declaración decide los conflictos, no la especificidad.
+   overrides (responsive + reduced-motion) siempre gana.
+   ============================================================ */
+
+@layer base, layout, components, sections, overrides;
+
+/* Sin capa (máxima prioridad natural): fuentes y tokens */
+@import './fonts.css';
+@import './tokens.css';
+
+@import './base.css';
+@import './layout.css';
+@import './components.css';
+
+@import './sections/intro.css';
+@import './sections/hero.css';
+@import './sections/message.css';
+@import './sections/reasons.css';
+@import './sections/counter.css';
+@import './sections/history.css';
+@import './sections/photos.css';
+@import './sections/music.css';
+@import './sections/event.css';
+@import './sections/cta.css';
+@import './sections/footer.css';
+@import './sections/lightbox.css';
+@import './sections/reveal.css';
+
+@import './overrides.css';
