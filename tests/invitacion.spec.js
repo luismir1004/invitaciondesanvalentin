@@ -84,9 +84,9 @@ test.describe('Un Año Contigo', () => {
         expect(await page.locator('.celebrate-heart').count()).toBeGreaterThan(0);
     });
 
-    test('la galería tiene 6 fotos con caption y el lightbox abre', async ({ page }) => {
+    test('la galería tiene 12 fotos con caption y el lightbox abre', async ({ page }) => {
         await page.click('#intro-open');
-        await expect(page.locator('.photo-caption')).toHaveCount(6);
+        await expect(page.locator('.photo-caption')).toHaveCount(12);
         const firstPhoto = page.locator('.photo-card img').first();
         await firstPhoto.scrollIntoViewIfNeeded();
         await firstPhoto.click();
